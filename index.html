@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UAE Training Center</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- NAVIGATION BAR -->
+  <nav class="bg-blue-900 text-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="showHome()">
+        <span class="text-2xl">🇦🇪</span>
+        <h1 class="text-xl md:text-2xl font-bold tracking-wide">UAE Training Center</h1>
+      </div>
+      <div id="auth-buttons" class="space-x-3">
+        <button onclick="openModal('signup-modal')" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Sign Up</button>
+        <button onclick="openModal('login-modal')" class="border border-white hover:bg-white hover:text-blue-900 px-4 py-2 rounded-lg text-sm font-semibold transition">Log In</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. HOME PAGE VIEW -->
+  <div id="home-view">
+    
+    <!-- Hero Section with UAE Flag & Ministry Endorsement -->
+    <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white py-20 px-4 text-center relative overflow-hidden">
+      <div class="max-w-4xl mx-auto relative z-10">
+        <!-- UAE Flag Badge -->
+        <div class="inline-flex items-center space-x-2 bg-blue-950/80 border border-amber-500/40 px-4 py-1.5 rounded-full text-xs font-semibold text-amber-400 mb-6">
+          <span class="text-base">🇦🇪</span>
+          <span>United Arab Emirates Accredited Institution</span>
+        </div>
+
+        <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Advance Your Career with Certified Professionals</h2>
+        <p class="text-lg md:text-xl mb-6 text-blue-100 max-w-3xl mx-auto">Providing world-class professional training backed by top ministry standards across the UAE and internationally.</p>
+
+        <!-- Ministry Endorsement Banner -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 max-w-2xl mx-auto mb-8 border border-white/20">
+          <p class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Official Accreditation</p>
+          <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
+        </div>
+
+        <button onclick="openModal('signup-modal')" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
+      </div>
+    </section>
+
+    <!-- Purpose & About Section -->
+    <section class="max-w-7xl mx-auto px-4 py-16">
+      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">About Our Center</span>
+          <h3 class="text-3xl md:text-4xl font-extrabold text-blue-900 mt-2 mb-4">Empowering Workforce Excellence in the UAE</h3>
+          <p class="text-gray-600 leading-relaxed mb-4">The UAE Training Center stands as a premiere hub for professional career acceleration. Established to support the country's vision of a knowledge-based economy, we bridge theoretical learning with practical workplace execution.</p>
+          <p class="text-gray-600 leading-relaxed">Through government-aligned curricula, certified expert trainers, and state-of-the-art facilities, we prepare individuals and corporations to excel in rapidly evolving global markets.</p>
+        </div>
+
+        <div class="bg-blue-50 rounded-2xl p-8 border border-blue-100 shadow-sm">
+          <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Our Purpose & Mission</span>
+          <h4 class="text-2xl font-bold text-blue-900 mt-2 mb-4">Why We Train</h4>
+          <ul class="space-y-3 text-gray-700 text-sm">
+            <li class="flex items-start space-x-3">
+              <span class="text-green-600 font-bold text-base">✓</span>
+              <span><strong>Skill Accreditation:</strong> Provide verified qualifications aligned with national labor standard requirements.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <span class="text-green-600 font-bold text-base">✓</span>
+              <span><strong>Career Growth:</strong> Equip professionals with high-demand digital, sales, and analytical competencies.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <span class="text-green-600 font-bold text-base">✓</span>
+              <span><strong>Corporate Excellence:</strong> Support UAE businesses with tailored workforce skill enhancement programs.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IMAGE GALLERY SECTION (7 Photos) -->
+      <div class="mb-8 text-center">
+        <h3 class="text-3xl font-extrabold text-blue-900 mb-2">Life at UAE Training Center</h3>
+        <p class="text-gray-600 max-w-2xl mx-auto text-sm">Explore our certified graduates, state-of-the-art learning environments, and hands-on workshops.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Certified Person with Certificate" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Certified Graduate</h4>
+            <p class="text-gray-500 text-xs mt-1">Students receiving official ministry-accredited certificates upon course completion.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="Students in Training Session" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Interactive Classrooms</h4>
+            <p class="text-gray-500 text-xs mt-1">Real-time collaboration supervised by industry certified specialists.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border">
+          <img src="https://images.unsplash.com/photo-1589330694653-ded6df03f754?auto=format&fit=crop&w=800&q=80" alt="Certified Qualification" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Verified Credentials</h4>
+            <p class="text-gray-500 text-xs mt-1">Internationally recognized qualifications to boost career opportunities.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Digital Analytics Lab" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Digital Training Labs</h4>
+            <p class="text-gray-500 text-xs mt-1">Hands-on technology practice including AI ads, GA4, and digital marketing tools.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Executive Seminar" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Executive Seminars</h4>
+            <p class="text-gray-500 text-xs mt-1">Leadership, revenue operations, and luxury marketing strategy workshops.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Expert Mentorship" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Expert Mentorship</h4>
+            <p class="text-gray-500 text-xs mt-1">Direct feedback and advisory from licensed UAE professional instructors.</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden border md:col-span-3 lg:col-span-1">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Team Learning" class="w-full h-56 object-cover">
+          <div class="p-4">
+            <h4 class="text-base font-bold text-blue-900">Collaborative Success</h4>
+            <p class="text-gray-500 text-xs mt-1">Group projects and practical case studies mimicking real corporate environments.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- 2. MAIN CATALOG DASHBOARD VIEW -->
+  <div id="dashboard-view" class="hidden max-w-7xl mx-auto px-4 py-12">
+    <div class="flex justify-between items-center mb-8 border-b pb-4">
+      <div>
+        <h2 class="text-3xl font-bold text-blue-900">Available Training Courses</h2>
+        <p class="text-gray-600">Explore our professional certifications and enroll today.</p>
+      </div>
+      <button onclick="logout()" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium">Log Out</button>
+    </div>
+
+    <!-- 18 Courses Grid -->
+    <div id="course-grid" class="grid md:grid-cols-3 gap-6"></div>
+  </div>
+
+  <!-- 3. PAYMENT PENDING / 48-HOUR WAIT VIEW -->
+  <div id="pending-view" class="hidden max-w-3xl mx-auto px-4 py-20 text-center">
+    <div class="bg-white rounded-2xl p-8 shadow-xl border">
+      <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      <h3 class="text-3xl font-bold text-blue-900 mb-3">Payment Submitted Successfully!</h3>
+      <p id="pending-course-title" class="text-amber-600 font-semibold mb-4 text-lg"></p>
+      <div class="bg-blue-50 border-l-4 border-blue-900 p-4 mb-6 text-left rounded-r">
+        <p class="text-gray-700 font-medium">Your payment is currently under review by our administration team. Please come back after <strong>48 hours</strong> to start your training.</p>
+      </div>
+      <p class="text-sm text-gray-500 mb-6">Once verified within 48 hours, your 5 training units and course PDF resources will unlock automatically in your portal.</p>
+      
+      <button onclick="simulateVerification()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition shadow">
+        [Demo Mode] Simulate 48 Hours Later & Start Training
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. ACTIVE COURSE LEARNING VIEW (5 Units & PDFs) -->
+  <div id="classroom-view" class="hidden max-w-5xl mx-auto px-4 py-12">
+    <div class="bg-blue-900 text-white rounded-2xl p-8 mb-8 shadow-lg">
+      <span class="bg-green-500 text-blue-950 font-bold text-xs uppercase px-3 py-1 rounded-full">Payment Confirmed & Verified</span>
+      <h2 id="active-course-name" class="text-3xl font-extrabold mt-3 mb-2"></h2>
+      <p class="text-blue-100">Welcome to your training room. Below are your 5 course modules and downloadable PDF guides.</p>
+      <button onclick="showCatalog()" class="mt-4 text-xs underline text-blue-200 hover:text-white">&larr; Back to Course List</button>
+    </div>
+
+    <h3 class="text-2xl font-bold text-gray-800 mb-6">Course Modules & Materials (Minimum 5 Units)</h3>
+    <div id="units-container" class="space-y-4"></div>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- Sign Up Modal -->
+  <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <h3 class="text-2xl font-bold text-blue-900 mb-4">Create Account</h3>
+      <form onsubmit="event.preventDefault(); sendVerificationCode('signup-email');">
+        <label class="block text-sm font-medium mb-1">Full Name</label>
+        <input type="text" required class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900">
+        <label class="block text-sm font-medium mb-1">Email Address</label>
+        <input type="email" id="signup-email" required class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+        <button type="submit" id="signup-btn-text" class="w-full bg-blue-900 text-white py-2 rounded-lg font-semibold hover:bg-blue-800 transition">Send Verification Code</button>
+      </form>
+      <button onclick="closeModal('signup-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    </div>
+  </div>
+
+  <!-- Verification Code Modal -->
+  <div id="verify-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <h3 class="text-2xl font-bold text-blue-900 mb-2">Enter Verification Code</h3>
+      <p class="text-sm text-gray-600 mb-4">We sent a 4-digit code to your email inbox.</p>
+      <form onsubmit="event.preventDefault(); completeLogin();">
+        <input type="text" id="verification-input" maxlength="4" placeholder="1234" required class="w-full border text-center text-2xl tracking-widest rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+        <button type="submit" id="verify-btn-text" class="w-full bg-amber-500 text-blue-950 py-2 rounded-lg font-bold hover:bg-amber-600 transition">Verify & Continue</button>
+      </form>
+      <button onclick="closeModal('verify-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    </div>
+  </div>
+
+  <!-- Log In Modal -->
+  <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <h3 class="text-2xl font-bold text-blue-900 mb-4">Log In</h3>
+      <form onsubmit="event.preventDefault(); sendVerificationCode('login-email');">
+        <label class="block text-sm font-medium mb-1">Registered Email</label>
+        <input type="email" id="login-email" required class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+        <button type="submit" id="login-btn-text" class="w-full bg-blue-900 text-white py-2 rounded-lg font-semibold hover:bg-blue-800 transition">Send Verification Code</button>
+      </form>
+      <button onclick="closeModal('login-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    </div>
+  </div>
+
+  <!-- Dynamic Payment Modal -->
+  <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <h3 class="text-2xl font-bold text-blue-900 mb-1">Payment Checkout</h3>
+      <p id="selected-course-name" class="text-sm font-semibold text-amber-600 mb-4"></p>
+      
+      <form onsubmit="event.preventDefault(); submitPayment();">
+        <label class="block text-sm font-medium mb-1">Select Country</label>
+        <select id="country-select" onchange="updatePaymentMethods()" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900 bg-white">
+          <option value="Ethiopia">Ethiopia</option>
+          <option value="UAE">United Arab Emirates (UAE)</option>
+          <option value="USA">United States</option>
+          <option value="UK">United Kingdom</option>
+          <option value="Saudi Arabia">Saudi Arabia</option>
+          <option value="Other">Other Country</option>
+        </select>
+
+        <label class="block text-sm font-medium mb-1">Select Payment Method</label>
+        <select id="payment-method-select" onchange="renderPaymentInstructions()" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900 bg-white">
+        </select>
+
+        <!-- M-Pesa Instructions View -->
+        <div id="mpesa-details" class="hidden bg-gray-50 border rounded-lg p-4 mb-4">
+          <p class="text-xs text-gray-500 font-bold uppercase mb-2">M-Pesa Account Details</p>
+          <div class="mb-2">
+            <span class="text-xs text-gray-500 block">Account Name:</span>
+            <span class="font-bold text-gray-800">Yitbarek</span>
+          </div>
+          <div class="mb-4">
+            <span class="text-xs text-gray-500 block">M-Pesa Phone Number:</span>
+            <div class="flex items-center space-x-2 mt-1">
+              <input type="text" readonly id="mpesa-number" value="0712345678" class="bg-white border rounded px-2 py-1 font-mono text-sm w-full font-bold text-blue-900">
+              <button type="button" onclick="copyToClipboard('mpesa-number', 'mpesa-btn')" id="mpesa-btn" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-3 py-1.5 rounded font-semibold transition">Copy</button>
+            </div>
+          </div>
+          <label class="block text-sm font-medium mb-1">Upload Payment Screenshot</label>
+          <input type="file" required accept="image/*" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-white cursor-pointer focus:outline-none">
+        </div>
+
+        <!-- PayPal / Bitget / Other Wallet View -->
+        <div id="wallet-details" class="hidden bg-gray-50 border rounded-lg p-4 mb-4">
+          <p class="text-xs text-gray-500 font-bold uppercase mb-2">Merchant Payment Address</p>
+          <div class="mb-4">
+            <span class="text-xs text-gray-500 block">Account / Wallet ID:</span>
+            <div class="flex items-center space-x-2 mt-1">
+              <input type="text" readonly id="wallet-id" value="23bdn7282bd" class="bg-white border rounded px-2 py-1 font-mono text-sm w-full font-bold text-blue-900">
+              <button type="button" onclick="copyToClipboard('wallet-id', 'wallet-btn')" id="wallet-btn" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-3 py-1.5 rounded font-semibold transition">Copy</button>
+            </div>
+          </div>
+          <label class="block text-sm font-medium mb-1">Enter Payment / Transaction Code</label>
+          <input type="text" required placeholder="Paste transaction reference code" class="w-full border rounded-lg px-3 py-2 focus:outline-blue-900 bg-white">
+        </div>
+
+        <!-- Generic Card Form View -->
+        <div id="card-details" class="hidden">
+          <label class="block text-sm font-medium mb-1">Card Number</label>
+          <input type="text" placeholder="XXXX XXXX XXXX XXXX" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900">
+        </div>
+
+        <button type="submit" id="pay-button" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold transition">Submit Payment</button>
+      </form>
+      <button onclick="closeModal('payment-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // 18 Courses with explicit USD ($) and AED pricing
+    const coursesList = [
+      { name: "Sales of Luxury Products", usd: 60, aed: 220 },
+      { name: "Accounting for Worldwide", usd: 65, aed: 240 },
+      { name: "Google Digital Marketing & E-commerce Certificate", usd: 180, aed: 660 },
+      { name: "Digital Marketing Certification Course", usd: 120, aed: 440 },
+      { name: "Meta Social Media Marketing Professional Certificate", usd: 150, aed: 550 },
+      { name: "Adobe Marketing Specialist Certificate", usd: 195, aed: 715 },
+      { name: "Content Marketing", usd: 45, aed: 165 },
+      { name: "Marketing Psychology & Neuromarketing", usd: 85, aed: 310 },
+      { name: "Business and Marketing Strategies", usd: 140, aed: 515 },
+      { name: "Marketing Strategy", usd: 90, aed: 330 },
+      { name: "Entrepreneurship – From Ideas to Reality", usd: 110, aed: 405 },
+      { name: "Inbound Sales", usd: 75, aed: 275 },
+      { name: "Revenue Operations (RevOps)", usd: 210, aed: 770 },
+      { name: "Introduction to Marketing", usd: 50, aed: 185 },
+      { name: "Marketing Analytics Foundation", usd: 130, aed: 475 },
+      { name: "Google Ads Search", usd: 160, aed: 585 },
+      { name: "AI-Powered Performance Ads", usd: 250, aed: 915 },
+      { name: "Google Analytics", usd: 175, aed: 640 }
+    ];
+
+    let currentSelectedCourse = null;
+    let userEmail = "";
+
+    // 1. REAL EMAIL VERIFICATION CALL (Netlify Serverless Endpoint)
+    async function sendVerificationCode(inputId) {
+      const emailField = document.getElementById(inputId);
+      const emailValue = emailField ? emailField.value.trim() : "";
+
+      if (!emailValue) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      userEmail = emailValue;
+
+      try {
+        // Send request to Netlify serverless backend function
+        const response = await fetch('/.netlify/functions/send-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: userEmail })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          closeModal('signup-modal');
+          closeModal('login-modal');
+          openModal('verify-modal');
+        } else {
+          alert("Error: " + (result.error || result.message || "Failed to send code"));
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Could not reach verification server. Ensure site is deployed on Netlify.");
+      }
+    }
+
+    // 2. VERIFY 4-DIGIT CODE
+    async function completeLogin() {
+      const codeInput = document.getElementById('verification-input').value.trim();
+
+      if (!codeInput) {
+        alert("Please enter the 4-digit code sent to your email.");
+        return;
+      }
+
+      try {
+        const response = await fetch('/.netlify/functions/verify-code', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: userEmail, code: codeInput })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          closeModal('verify-modal');
+          document.getElementById('home-view').classList.add('hidden');
+          document.getElementById('auth-buttons').classList.add('hidden');
+          showCatalog();
+        } else {
+          alert(result.message || "Invalid verification code.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Verification failed. Please check your network or try again.");
+      }
+    }
+
+    function renderCourseGrid() {
+      const container = document.getElementById('course-grid');
+      container.innerHTML = '';
+      coursesList.forEach((course) => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-xl shadow border p-6 flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Accredited Course</span>
+            <h3 class="text-xl font-bold mt-2 text-gray-800">${course.name}</h3>
+            <p class="text-gray-600 text-sm mt-2">Comprehensive professional certificate program including 5 core units and downloadable study materials.</p>
+          </div>
+          <div class="mt-6 flex justify-between items-center border-t pt-4">
+            <div>
+              <span class="text-2xl font-bold text-blue-900">$${course.usd}</span>
+              <span class="text-sm font-semibold text-gray-500 block">(${course.aed} AED)</span>
+            </div>
+            <button onclick="selectCourse('${course.name}', ${course.usd}, ${course.aed})" class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold">Enroll & Pay</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+    function logout() {
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('pending-view').classList.add('hidden');
+      document.getElementById('classroom-view').classList.add('hidden');
+      document.getElementById('home-view').classList.remove('hidden');
+      document.getElementById('auth-buttons').classList.remove('hidden');
+    }
+
+    function showHome() {
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('pending-view').classList.add('hidden');
+      document.getElementById('classroom-view').classList.add('hidden');
+      document.getElementById('home-view').classList.remove('hidden');
+    }
+
+    function showCatalog() {
+      document.getElementById('home-view').classList.add('hidden');
+      document.getElementById('pending-view').classList.add('hidden');
+      document.getElementById('classroom-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+      renderCourseGrid();
+    }
+
+    function updatePaymentMethods() {
+      const country = document.getElementById('country-select').value;
+      const paymentSelect = document.getElementById('payment-method-select');
+      paymentSelect.innerHTML = '';
+
+      if (country === 'Ethiopia') {
+        ['M-Pesa', 'PayPal', 'Bitget'].forEach(method => {
+          const opt = document.createElement('option');
+          opt.value = method;
+          opt.innerText = method;
+          paymentSelect.appendChild(opt);
+        });
+      } else {
+        ['PayPal', 'Bitget', 'Credit / Debit Card (Stripe)', 'Apple Pay'].forEach(method => {
+          const opt = document.createElement('option');
+          opt.value = method;
+          opt.innerText = method;
+          paymentSelect.appendChild(opt);
+        });
+      }
+      renderPaymentInstructions();
+    }
+
+    function renderPaymentInstructions() {
+      const method = document.getElementById('payment-method-select').value;
+      document.getElementById('mpesa-details').classList.add('hidden');
+      document.getElementById('wallet-details').classList.add('hidden');
+      document.getElementById('card-details').classList.add('hidden');
+
+      if (method === 'M-Pesa') {
+        document.getElementById('mpesa-details').classList.remove('hidden');
+      } else if (method === 'PayPal' || method === 'Bitget') {
+        document.getElementById('wallet-details').classList.remove('hidden');
+      } else {
+        document.getElementById('card-details').classList.remove('hidden');
+      }
+    }
+
+    function copyToClipboard(elementId, buttonId) {
+      const input = document.getElementById(elementId);
+      navigator.clipboard.writeText(input.value);
+      const btn = document.getElementById(buttonId);
+      btn.innerText = 'Copied!';
+      btn.classList.replace('bg-blue-900', 'bg-green-600');
+      setTimeout(() => {
+        btn.innerText = 'Copy';
+        btn.classList.replace('bg-green-600', 'bg-blue-900');
+      }, 2000);
+    }
+
+    function selectCourse(courseName, usdPrice, aedPrice) {
+      currentSelectedCourse = courseName;
+      document.getElementById('selected-course-name').innerText = `${courseName} - $${usdPrice} (${aedPrice} AED)`;
+      document.getElementById('pay-button').innerText = `Submit $${usdPrice} / ${aedPrice} AED Payment`;
+      updatePaymentMethods();
+      openModal('payment-modal');
+    }
+
+    function submitPayment() {
+      closeModal('payment-modal');
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('pending-course-title').innerText = currentSelectedCourse;
+      document.getElementById('pending-view').classList.remove('hidden');
+    }
+
+    function simulateVerification() {
+      document.getElementById('pending-view').classList.add('hidden');
+      document.getElementById('active-course-name').innerText = currentSelectedCourse;
+
+      const unitsContainer = document.getElementById('units-container');
+      unitsContainer.innerHTML = '';
+
+      const unitTopics = [
+        "Unit 1: Fundamentals & Strategic Frameworks",
+        "Unit 2: Applied Methodologies & Practical Tools",
+        "Unit 3: Case Studies & Industry Applications",
+        "Unit 4: Campaign Management & Optimization",
+        "Unit 5: Final Assessment & Professional Certification"
+      ];
+
+      unitTopics.forEach((unitTitle, idx) => {
+        const unitCard = document.createElement('div');
+        unitCard.className = "bg-white rounded-xl p-6 border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4";
+        unitCard.innerHTML = `
+          <div>
+            <span class="text-xs font-bold text-amber-600 tracking-wide uppercase">Module ${idx + 1} of 5</span>
+            <h4 class="text-lg font-bold text-gray-800 mt-1">${unitTitle}</h4>
+            <p class="text-gray-600 text-sm mt-1">Comprehensive training content specifically tailored for <strong>${currentSelectedCourse}</strong>.</p>
+          </div>
+          <button onclick="downloadPDF('${currentSelectedCourse}', ${idx + 1})" class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span>Download PDF Unit ${idx + 1}</span>
+          </button>
+        `;
+        unitsContainer.appendChild(unitCard);
+      });
+
+      document.getElementById('classroom-view').classList.remove('hidden');
+    }
+
+    function downloadPDF(courseName, unitNumber) {
+      const pdfTextContent = `=====================================================
+UAE TRAINING CENTER - OFFICIAL COURSE MATERIAL
+Course: ${courseName}
+Module: Unit ${unitNumber}
+Status: Verified & Accredited Document
+=====================================================
+
+1. INTRODUCTION TO UNIT ${unitNumber}
+This training document contains official curriculum modules for ${courseName}.
+
+2. CORE OBJECTIVES & LEARNING OUTCOMES
+- Understand the foundational theories of ${courseName}.
+- Implement real-world strategy and industry best practices.
+- Complete practical exercises tailored to international standards.
+
+3. STUDY GUIDE & EXERCISES
+Review this unit thoroughly prior to taking your final certification assessment.
+
+© UAE Training Center - All Rights Reserved.`;
+
+      const blob = new Blob([pdfTextContent], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${courseName.replace(/[^a-zA-Z0-9]/g, '_')}_Unit_${unitNumber}.pdf`;
+      link.click();
+    }
+  </script>
+</body>
+</html>

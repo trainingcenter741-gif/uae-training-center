@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <!-- IMAGE GALLERY SECTION (7 Photos) -->
+      <!-- IMAGE GALLERY SECTION -->
       <div class="mb-8 text-center">
         <h3 class="text-3xl font-extrabold text-blue-900 mb-2">Life at UAE Training Center</h3>
         <p class="text-gray-600 max-w-2xl mx-auto text-sm">Explore our certified graduates, state-of-the-art learning environments, and hands-on workshops.</p>
@@ -178,7 +178,7 @@
     </div>
   </div>
 
-  <!-- 4. ACTIVE COURSE LEARNING VIEW (5 Units & PDFs) -->
+  <!-- 4. ACTIVE COURSE LEARNING VIEW -->
   <div id="classroom-view" class="hidden max-w-5xl mx-auto px-4 py-12">
     <div class="bg-blue-900 text-white rounded-2xl p-8 mb-8 shadow-lg">
       <span class="bg-green-500 text-blue-950 font-bold text-xs uppercase px-3 py-1 rounded-full">Payment Confirmed & Verified</span>
@@ -212,9 +212,9 @@
   <div id="verify-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
       <h3 class="text-2xl font-bold text-blue-900 mb-2">Enter Verification Code</h3>
-      <p class="text-sm text-gray-600 mb-4">We sent a 4-digit code to your email inbox.</p>
+      <p class="text-sm text-gray-600 mb-4">We sent a 6-digit code to your email inbox.</p>
       <form onsubmit="event.preventDefault(); completeLogin();">
-        <input type="text" id="verification-input" maxlength="4" placeholder="1234" required class="w-full border text-center text-2xl tracking-widest rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+        <input type="text" id="verification-input" maxlength="6" placeholder="123456" required class="w-full border text-center text-2xl tracking-widest rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
         <button type="submit" id="verify-btn-text" class="w-full bg-amber-500 text-blue-950 py-2 rounded-lg font-bold hover:bg-amber-600 transition">Verify & Continue</button>
       </form>
       <button onclick="closeModal('verify-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
@@ -273,7 +273,7 @@
           <input type="file" required accept="image/*" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-white cursor-pointer focus:outline-none">
         </div>
 
-        <!-- PayPal / Bitget / Other Wallet View -->
+        <!-- PayPal / Bitget Details View -->
         <div id="wallet-details" class="hidden bg-gray-50 border rounded-lg p-4 mb-4">
           <p class="text-xs text-gray-500 font-bold uppercase mb-2">Merchant Payment Address</p>
           <div class="mb-4">
@@ -287,7 +287,7 @@
           <input type="text" required placeholder="Paste transaction reference code" class="w-full border rounded-lg px-3 py-2 focus:outline-blue-900 bg-white">
         </div>
 
-        <!-- Generic Card Form View -->
+        <!-- Card Details View -->
         <div id="card-details" class="hidden">
           <label class="block text-sm font-medium mb-1">Card Number</label>
           <input type="text" placeholder="XXXX XXXX XXXX XXXX" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900">
@@ -301,7 +301,6 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // 18 Courses with explicit USD ($) and AED pricing
     const coursesList = [
       { name: "Sales of Luxury Products", usd: 60, aed: 220 },
       { name: "Accounting for Worldwide", usd: 65, aed: 240 },
@@ -326,7 +325,7 @@
     let currentSelectedCourse = null;
     let userEmail = "";
 
-    // 1. REAL EMAIL VERIFICATION CALL (Netlify Serverless Endpoint)
+    // 1. SEND VERIFICATION CODE
     async function sendVerificationCode(inputId) {
       const emailField = document.getElementById(inputId);
       const emailValue = emailField ? emailField.value.trim() : "";
@@ -339,7 +338,6 @@
       userEmail = emailValue;
 
       try {
-        // Send request to Netlify serverless backend function
         const response = await fetch('/.netlify/functions/send-code', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -348,25 +346,26 @@
 
         const result = await response.json();
 
-        if (result.success) {
+        if (response.ok) {
+          alert("Verification code sent successfully! Please check your email inbox.");
           closeModal('signup-modal');
           closeModal('login-modal');
           openModal('verify-modal');
         } else {
-          alert("Error: " + (result.error || result.message || "Failed to send code"));
+          alert("Error: " + (result.message || result.error || "Failed to send code"));
         }
       } catch (err) {
         console.error(err);
-        alert("Could not reach verification server. Ensure site is deployed on Netlify.");
+        alert("Could not reach verification server. Please try again.");
       }
     }
 
-    // 2. VERIFY 4-DIGIT CODE
+    // 2. VERIFY CODE
     async function completeLogin() {
       const codeInput = document.getElementById('verification-input').value.trim();
 
       if (!codeInput) {
-        alert("Please enter the 4-digit code sent to your email.");
+        alert("Please enter the verification code.");
         return;
       }
 
@@ -379,13 +378,14 @@
 
         const result = await response.json();
 
-        if (result.success) {
+        if (response.ok) {
+          alert("Verification successful!");
           closeModal('verify-modal');
           document.getElementById('home-view').classList.add('hidden');
           document.getElementById('auth-buttons').classList.add('hidden');
           showCatalog();
         } else {
-          alert(result.message || "Invalid verification code.");
+          alert("Error: " + (result.message || "Invalid verification code."));
         }
       } catch (err) {
         console.error(err);

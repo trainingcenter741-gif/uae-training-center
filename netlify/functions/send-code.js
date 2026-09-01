@@ -1,5 +1,5 @@
 const { Resend } = require('resend');
-const { getStore } = require('@netlify/blobs');
+const { getStore, connectLambda } = require('@netlify/blobs');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -9,22 +9,26 @@ exports.handler = async (event) => {
   }
 
   try {
+    // Initialize Netlify Blobs for Lambda compatibility mode
+    connectLambda(event);
+
     const { email } = JSON.parse(event.body || '{}');
     if (!email) {
       return { statusCode: 400, body: JSON.stringify({ message: 'Email is required' }) };
     }
 
-    // Generate 6-digit code
+    const cleanEmail = email.toLowerCase().trim();
+    // Generate 6-digit verification code
     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Save code to Netlify Blobs (key = normalized email)
+    // Store in Netlify Blobs
     const store = getStore('verification-codes');
-    await store.set(email.toLowerCase().trim(), code);
+    await store.set(cleanEmail, code);
 
     // Send email via Resend
     await resend.emails.send({
-      from: 'noreply@uaecenter.work.gd', // Ensure domain is verified in Resend
-      to: email,
+      from: 'noreply@uaecenter.work.gd',
+      to: cleanEmail,
       subject: 'Your Verification Code',
       html: `<p>Your verification code is: <strong>${code}</strong></p>`
     });

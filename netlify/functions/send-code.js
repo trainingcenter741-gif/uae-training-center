@@ -1,11 +1,11 @@
 const { Resend } = require('resend');
 
-// In-memory code store (For production, use Netlify Blobs or a free database like Upstash Redis)
+// In-memory code store
 global.verificationCodes = global.verificationCodes || {};
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 455, body: 'Method Not Allowed' };
+    return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   const { email } = JSON.parse(event.body);
@@ -22,7 +22,7 @@ exports.handler = async (event) => {
 
   try {
     await resend.emails.send({
-      from: 'UAE Training Center <onboarding@resend.dev>', // Netlify/Resend test sender
+      from: 'UAE Training Center <noreply@uaecenter.work.gd>',
       to: email,
       subject: 'Your Verification Code - UAE Training Center',
       html: `

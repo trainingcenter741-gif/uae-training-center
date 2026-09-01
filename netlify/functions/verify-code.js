@@ -1,36 +1,48 @@
+const { getStore } = require('@netlify/blobs');
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  const { email, code } = JSON.parse(event.body);
-  const record = global.verificationCodes ? global.verificationCodes[email] : null;
+  try {
+    const { email, code } = JSON.parse(event.body || '{}');
+    if (!email || !code) {
+      return { statusCode: 400, body: JSON.stringify({ message: 'Email and code are required' }) };
+    }
 
-  if (!record) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ success: false, message: 'No verification code requested for this email.' })
-    };
-  }
+    const cleanEmail = email.toLowerCase().trim();
+    const store = getStore('verification-codes');
 
-  if (Date.now() > record.expiresAt) {
-    delete global.verificationCodes[email];
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ success: false, message: 'Verification code expired. Request a new one.' })
-    };
-  }
+    // Fetch stored code from Netlify Blobs
+    const storedCode = await store.get(cleanEmail);
 
-  if (record.code === code) {
-    delete global.verificationCodes[email];
+    if (!storedCode) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'No verification code requested for this email.' })
+      };
+    }
+
+    if (storedCode !== code.trim()) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: 'Invalid verification code.' })
+      };
+    }
+
+    // Code matches — delete it so it can't be reused
+    await store.delete(cleanEmail);
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, message: 'Email verified successfully!' })
+      body: JSON.stringify({ message: 'Verification successful!' })
     };
-  } else {
+  } catch (error) {
+    console.error('Error verifying code:', error);
     return {
-      statusCode: 400,
-      body: JSON.stringify({ success: false, message: 'Invalid verification code.' })
+      statusCode: 500,
+      body: JSON.stringify({ message: error.message || 'Verification failed' })
     };
   }
 };

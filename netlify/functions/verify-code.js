@@ -1,4 +1,4 @@
-const { getStore } = require('@netlify/blobs');
+const { getStore, connectLambda } = require('@netlify/blobs');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -6,6 +6,9 @@ exports.handler = async (event) => {
   }
 
   try {
+    // Initialize Netlify Blobs for Lambda compatibility mode
+    connectLambda(event);
+
     const { email, code } = JSON.parse(event.body || '{}');
     if (!email || !code) {
       return { statusCode: 400, body: JSON.stringify({ message: 'Email and code are required' }) };
@@ -14,7 +17,7 @@ exports.handler = async (event) => {
     const cleanEmail = email.toLowerCase().trim();
     const store = getStore('verification-codes');
 
-    // Fetch stored code from Netlify Blobs
+    // Retrieve stored code
     const storedCode = await store.get(cleanEmail);
 
     if (!storedCode) {
@@ -31,7 +34,7 @@ exports.handler = async (event) => {
       };
     }
 
-    // Code matches — delete it so it can't be reused
+    // Code matches — delete it so it cannot be used again
     await store.delete(cleanEmail);
 
     return {

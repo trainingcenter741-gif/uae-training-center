@@ -19,13 +19,13 @@
       
       <!-- Auth Buttons (Logged Out) -->
       <div id="auth-buttons" class="space-x-3">
-        <button onclick="openAuthModal('signup')" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Sign Up</button>
-        <button onclick="openAuthModal('login')" class="border border-white hover:bg-white hover:text-blue-900 px-4 py-2 rounded-lg text-sm font-semibold transition">Log In</button>
+        <button onclick="openSignupModal()" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Sign Up</button>
+        <button onclick="openLoginModal()" class="border border-white hover:bg-white hover:text-blue-900 px-4 py-2 rounded-lg text-sm font-semibold transition">Log In</button>
       </div>
 
       <!-- User Profile (Logged In) -->
       <div id="user-profile" class="hidden flex items-center space-x-4">
-        <span id="user-email-display" class="text-xs bg-blue-950 px-3 py-1.5 rounded-full border border-blue-700 text-amber-400 font-medium"></span>
+        <span id="user-name-display" class="text-xs bg-blue-950 px-3 py-1.5 rounded-full border border-blue-700 text-amber-400 font-medium"></span>
         <button onclick="logout()" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Log Out</button>
       </div>
     </div>
@@ -48,7 +48,7 @@
           <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
         </div>
 
-        <button onclick="openAuthModal('signup')" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
+        <button onclick="openSignupModal()" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
       </div>
     </section>
 
@@ -118,21 +118,57 @@
     <div id="units-container" class="space-y-4"></div>
   </div>
 
-  <!-- AUTHENTICATION MODAL -->
-  <div id="auth-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+  <!-- SIGN UP MODAL (Step 1: Details -> Step 2: Verification Code) -->
+  <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-      <h3 id="auth-title" class="text-2xl font-bold text-blue-900 mb-4">Sign Up</h3>
+      <h3 class="text-2xl font-bold text-blue-900 mb-1">Create New Account</h3>
+      <p class="text-xs text-gray-500 mb-4">New registration requires email verification code.</p>
       
-      <form onsubmit="event.preventDefault(); handleAuthSubmit();">
+      <!-- Signup Form -->
+      <form id="signup-form-step1" onsubmit="event.preventDefault(); sendVerificationCode();">
+        <label class="block text-sm font-medium mb-1">Full Name</label>
+        <input type="text" id="reg-fullname" required placeholder="Ahmad Al-Mansoor" class="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-blue-900">
+
         <label class="block text-sm font-medium mb-1">Email Address</label>
-        <input type="email" id="auth-email" required placeholder="name@example.com" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900">
+        <input type="email" id="reg-email" required placeholder="name@example.com" class="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-blue-900">
+
+        <label class="block text-sm font-medium mb-1">Password (min 6 characters)</label>
+        <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold py-3 rounded-lg transition">Send Verification Code</button>
+      </form>
+
+      <!-- Verification Code Form (Hidden initially) -->
+      <form id="signup-form-step2" class="hidden" onsubmit="event.preventDefault(); verifyAndRegister();">
+        <div class="bg-blue-50 p-3 rounded-lg text-xs text-blue-900 mb-4">
+          We have generated your verification code. (For testing right now, your code is displayed in the alert box when sent!). Enter it below:
+        </div>
+        <label class="block text-sm font-medium mb-1">Enter 6-Digit Code</label>
+        <input type="text" id="reg-code-input" required placeholder="123456" class="w-full border rounded-lg px-3 py-2 mb-6 text-center tracking-widest font-mono text-lg focus:outline-blue-900">
+
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition">Verify & Complete Signup</button>
+      </form>
+
+      <button onclick="closeModal('signup-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <h3 class="text-2xl font-bold text-blue-900 mb-1">Log In to Account</h3>
+      <p class="text-xs text-gray-500 mb-4">Enter your registered email and correct password.</p>
+      
+      <form onsubmit="event.preventDefault(); handleLogin();">
+        <label class="block text-sm font-medium mb-1">Email Address</label>
+        <input type="email" id="login-email" required placeholder="name@example.com" class="w-full border rounded-lg px-3 py-2 mb-3 focus:outline-blue-900">
 
         <label class="block text-sm font-medium mb-1">Password</label>
-        <input type="password" id="auth-password" required placeholder="At least 6 characters" class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+        <input type="password" id="login-password" required placeholder="••••••••" class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
 
-        <button type="submit" id="auth-submit-btn" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold py-3 rounded-lg transition">Create Account</button>
+        <button type="submit" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition">Log In</button>
       </form>
-      <button onclick="closeModal('auth-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+      <button onclick="closeModal('login-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
     </div>
   </div>
 
@@ -204,7 +240,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & APP LOGIC -->
+  <!-- JAVASCRIPT & SECURE AUTH LOGIC -->
   <script>
     const coursesList = [
       { name: "Sales of Luxury Products", usd: 34, aed: 125, etb: 5644 },
@@ -228,42 +264,92 @@
     ];
 
     let currentSelectedCourseObj = null;
-    let authMode = 'signup';
+    let tempUserData = {};
+    let generatedVerificationCode = '';
 
     window.addEventListener('load', () => {
-      const loggedUser = localStorage.getItem('uae_user');
-      if (loggedUser) {
-        onUserSignedIn(loggedUser);
+      const activeUser = localStorage.getItem('uae_active_user');
+      if (activeUser) {
+        onUserSignedIn(JSON.parse(activeUser));
       } else {
         onUserSignedOut();
       }
     });
 
-    function openAuthModal(mode) {
-      authMode = mode;
-      const title = document.getElementById('auth-title');
-      const btn = document.getElementById('auth-submit-btn');
-      if (mode === 'signup') {
-        title.innerText = 'Create New Account';
-        btn.innerText = 'Create Account';
-      } else {
-        title.innerText = 'Log In to Account';
-        btn.innerText = 'Log In';
+    function openSignupModal() {
+      document.getElementById('signup-form-step1').classList.remove('hidden');
+      document.getElementById('signup-form-step2').classList.add('hidden');
+      openModal('signup-modal');
+    }
+
+    function openLoginModal() {
+      openModal('login-modal');
+    }
+
+    function sendVerificationCode() {
+      const fullname = document.getElementById('reg-fullname').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+
+      // Check if user already exists
+      let users = JSON.parse(localStorage.getItem('uae_registered_users') || '[]');
+      if (users.some(u => u.email === email)) {
+        alert('An account with this email already exists! Please log in.');
+        return;
       }
-      openModal('auth-modal');
+
+      // Generate 6 digit code
+      generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+      tempUserData = { fullname, email, password };
+
+      // Simulate sending code to email
+      alert(`Verification code sent to ${email}!\n\n[SIMULATED EMAIL CODE]: ${generatedVerificationCode}`);
+
+      // Switch modal view to step 2 (enter code)
+      document.getElementById('signup-form-step1').classList.add('hidden');
+      document.getElementById('signup-form-step2').classList.remove('hidden');
     }
 
-    function handleAuthSubmit() {
-      const email = document.getElementById('auth-email').value;
-      localStorage.setItem('uae_user', email);
-      closeModal('auth-modal');
-      onUserSignedIn(email);
+    function verifyAndRegister() {
+      const enteredCode = document.getElementById('reg-code-input').value;
+      if (enteredCode !== generatedVerificationCode) {
+        alert('Incorrect verification code. Please check and try again.');
+        return;
+      }
+
+      // Save user to database (localStorage)
+      let users = JSON.parse(localStorage.getItem('uae_registered_users') || '[]');
+      users.push(tempUserData);
+      localStorage.setItem('uae_registered_users', JSON.stringify(users));
+
+      // Auto login user
+      localStorage.setItem('uae_active_user', JSON.stringify(tempUserData));
+      closeModal('signup-modal');
+      onUserSignedIn(tempUserData);
+      alert('Account verified and created successfully!');
     }
 
-    function onUserSignedIn(email) {
+    function handleLogin() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      let users = JSON.parse(localStorage.getItem('uae_registered_users') || '[]');
+      const foundUser = users.find(u => u.email === email && u.password === password);
+
+      if (!foundUser) {
+        alert('Invalid email or incorrect password! Please check your credentials.');
+        return;
+      }
+
+      localStorage.setItem('uae_active_user', JSON.stringify(foundUser));
+      closeModal('login-modal');
+      onUserSignedIn(foundUser);
+    }
+
+    function onUserSignedIn(user) {
       document.getElementById('auth-buttons').classList.add('hidden');
       document.getElementById('user-profile').classList.remove('hidden');
-      document.getElementById('user-email-display').innerText = email;
+      document.getElementById('user-name-display').innerText = user.fullname;
       showCatalog();
     }
 
@@ -274,7 +360,7 @@
     }
 
     function logout() {
-      localStorage.removeItem('uae_user');
+      localStorage.removeItem('uae_active_user');
       onUserSignedOut();
     }
 

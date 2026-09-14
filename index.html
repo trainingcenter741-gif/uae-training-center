@@ -4,16 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UAE Training Center</title>
-
-  <!-- Clerk Authentication Script -->
-  <script
-    async
-    crossorigin="anonymous"
-    data-clerk-publishable-key="pk_test_cmVmaW5lZC1zaGVlcGRvZy0xMTQuY2xlcmsuYWNjb3VudHMuZGV2JA"
-    src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
-    type="text/javascript"
-  ></script>
-
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -27,10 +17,10 @@
         <h1 class="text-xl md:text-2xl font-bold tracking-wide">UAE Training Center</h1>
       </div>
       
-      <!-- Clerk Auth Buttons (Logged Out) -->
+      <!-- Auth Buttons (Logged Out) -->
       <div id="auth-buttons" class="space-x-3">
-        <button onclick="window.Clerk.openSignUp()" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Sign Up</button>
-        <button onclick="window.Clerk.openSignIn()" class="border border-white hover:bg-white hover:text-blue-900 px-4 py-2 rounded-lg text-sm font-semibold transition">Log In</button>
+        <button onclick="openAuthModal('signup')" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Sign Up</button>
+        <button onclick="openAuthModal('login')" class="border border-white hover:bg-white hover:text-blue-900 px-4 py-2 rounded-lg text-sm font-semibold transition">Log In</button>
       </div>
 
       <!-- User Profile (Logged In) -->
@@ -58,7 +48,7 @@
           <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
         </div>
 
-        <button onclick="window.Clerk.openSignUp()" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
+        <button onclick="openAuthModal('signup')" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
       </div>
     </section>
 
@@ -126,6 +116,24 @@
 
     <h3 class="text-2xl font-bold text-gray-800 mb-6">Course Modules & Materials</h3>
     <div id="units-container" class="space-y-4"></div>
+  </div>
+
+  <!-- AUTHENTICATION MODAL -->
+  <div id="auth-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <h3 id="auth-title" class="text-2xl font-bold text-blue-900 mb-4">Sign Up</h3>
+      
+      <form onsubmit="event.preventDefault(); handleAuthSubmit();">
+        <label class="block text-sm font-medium mb-1">Email Address</label>
+        <input type="email" id="auth-email" required placeholder="name@example.com" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900">
+
+        <label class="block text-sm font-medium mb-1">Password</label>
+        <input type="password" id="auth-password" required placeholder="At least 6 characters" class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
+
+        <button type="submit" id="auth-submit-btn" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold py-3 rounded-lg transition">Create Account</button>
+      </form>
+      <button onclick="closeModal('auth-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    </div>
   </div>
 
   <!-- DYNAMIC PAYMENT MODAL -->
@@ -196,7 +204,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & CLERK INITIALIZATION -->
+  <!-- JAVASCRIPT & APP LOGIC -->
   <script>
     const coursesList = [
       { name: "Sales of Luxury Products", usd: 34, aed: 125, etb: 5644 },
@@ -220,33 +228,42 @@
     ];
 
     let currentSelectedCourseObj = null;
+    let authMode = 'signup';
 
-    // CLERK INITIALIZATION & AUTH LISTENERS
-    window.addEventListener('load', async () => {
-      const clerk = window.Clerk;
-      if (clerk) {
-        await clerk.load();
-
-        if (clerk.user) {
-          onUserSignedIn(clerk.user);
-        } else {
-          onUserSignedOut();
-        }
-
-        clerk.addListener(({ user }) => {
-          if (user) {
-            onUserSignedIn(user);
-          } else {
-            onUserSignedOut();
-          }
-        });
+    window.addEventListener('load', () => {
+      const loggedUser = localStorage.getItem('uae_user');
+      if (loggedUser) {
+        onUserSignedIn(loggedUser);
+      } else {
+        onUserSignedOut();
       }
     });
 
-    function onUserSignedIn(user) {
+    function openAuthModal(mode) {
+      authMode = mode;
+      const title = document.getElementById('auth-title');
+      const btn = document.getElementById('auth-submit-btn');
+      if (mode === 'signup') {
+        title.innerText = 'Create New Account';
+        btn.innerText = 'Create Account';
+      } else {
+        title.innerText = 'Log In to Account';
+        btn.innerText = 'Log In';
+      }
+      openModal('auth-modal');
+    }
+
+    function handleAuthSubmit() {
+      const email = document.getElementById('auth-email').value;
+      localStorage.setItem('uae_user', email);
+      closeModal('auth-modal');
+      onUserSignedIn(email);
+    }
+
+    function onUserSignedIn(email) {
       document.getElementById('auth-buttons').classList.add('hidden');
       document.getElementById('user-profile').classList.remove('hidden');
-      document.getElementById('user-email-display').innerText = user.primaryEmailAddress.emailAddress;
+      document.getElementById('user-email-display').innerText = email;
       showCatalog();
     }
 
@@ -256,10 +273,9 @@
       showHome();
     }
 
-    async function logout() {
-      if (window.Clerk) {
-        await window.Clerk.signOut();
-      }
+    function logout() {
+      localStorage.removeItem('uae_user');
+      onUserSignedOut();
     }
 
     function renderCourseGrid() {

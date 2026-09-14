@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UAE Training Center</title>
+
+  <!-- Clerk Authentication Script -->
+  <script
+    async
+    crossorigin="anonymous"
+    data-clerk-publishable-key="pk_test_cmVmaW5lZC1zaGVlcGRvZy0xMTQuY2xlcmsuYWNjb3VudHMuZGV2JA"
+    src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+    type="text/javascript"
+  ></script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -25,7 +35,6 @@
 
   <!-- 1. HOME PAGE VIEW -->
   <div id="home-view">
-    
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white py-20 px-4 text-center relative overflow-hidden">
       <div class="max-w-4xl mx-auto relative z-10">
@@ -34,16 +43,14 @@
           <span class="text-base">🇦🇪</span>
           <span>United Arab Emirates Accredited Institution</span>
         </div>
-
         <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Advance Your Career with Certified Professionals</h2>
         <p class="text-lg md:text-xl mb-6 text-blue-100 max-w-3xl mx-auto">Providing world-class professional training backed by top ministry standards across the UAE and internationally.</p>
-
+        
         <!-- Ministry Endorsement Banner -->
         <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 max-w-2xl mx-auto mb-8 border border-white/20">
           <p class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Official Accreditation</p>
           <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
         </div>
-
         <button onclick="openModal('signup-modal')" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
       </div>
     </section>
@@ -58,7 +65,6 @@
           <p class="text-gray-600 leading-relaxed mb-4">Through government-aligned curricula, certified expert trainers, and state-of-the-art facilities, we prepare individuals and corporate teams to excel in rapidly evolving global markets.</p>
           <p class="text-gray-600 leading-relaxed">Our programs offer flexible online modules, downloadable study manuals, and official completion certificates designed to elevate your professional profile worldwide.</p>
         </div>
-
         <div class="bg-blue-50 rounded-2xl p-8 border border-blue-100 shadow-sm">
           <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Our Purpose & Mission</span>
           <h4 class="text-2xl font-bold text-blue-900 mt-2 mb-4">Why Choose UAE Training Center</h4>
@@ -89,7 +95,6 @@
         <h3 class="text-3xl font-extrabold text-blue-900 mb-2">Life at UAE Training Center</h3>
         <p class="text-gray-600 max-w-2xl mx-auto text-sm">Explore our certified graduates, interactive learning environments, and executive training labs.</p>
       </div>
-
       <div class="grid md:grid-cols-4 gap-6">
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Certified Person with Certificate" class="w-full h-48 object-cover">
@@ -98,7 +103,6 @@
             <p class="text-gray-500 text-xs mt-1">Students receiving official ministry-accredited certificates upon completion.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="Students in Training Session" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -106,7 +110,6 @@
             <p class="text-gray-500 text-xs mt-1">Real-time collaboration supervised by industry certified specialists.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1589330694653-ded6df03f754?auto=format&fit=crop&w=800&q=80" alt="Certified Qualification" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -114,7 +117,6 @@
             <p class="text-gray-500 text-xs mt-1">Internationally recognized qualifications to boost career opportunities.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Digital Analytics Lab" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -122,7 +124,6 @@
             <p class="text-gray-500 text-xs mt-1">Hands-on technology practice including AI ads, GA4, and digital tools.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Executive Seminar" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -130,7 +131,6 @@
             <p class="text-gray-500 text-xs mt-1">Leadership, revenue operations, and luxury marketing strategy workshops.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Expert Mentorship" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -138,7 +138,6 @@
             <p class="text-gray-500 text-xs mt-1">Direct advisory and practical guidance from licensed UAE instructors.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Team Learning" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -146,7 +145,6 @@
             <p class="text-gray-500 text-xs mt-1">Group case studies mimicking real corporate operational environments.</p>
           </div>
         </div>
-
         <div class="bg-white rounded-2xl shadow-md overflow-hidden border transition hover:shadow-lg">
           <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Strategy Workshop" class="w-full h-48 object-cover">
           <div class="p-4">
@@ -167,7 +165,6 @@
       </div>
       <button onclick="logout()" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium">Log Out</button>
     </div>
-
     <div id="course-grid" class="grid md:grid-cols-3 gap-6"></div>
   </div>
 
@@ -200,14 +197,13 @@
       <p class="text-blue-100">Welcome to your training room. Below are your 5 course modules and downloadable PDF guides.</p>
       <button onclick="showCatalog()" class="mt-4 text-xs underline text-blue-200 hover:text-white">&larr; Back to Course List</button>
     </div>
-
     <h3 class="text-2xl font-bold text-gray-800 mb-6">Course Modules & Materials</h3>
     <div id="units-container" class="space-y-4"></div>
   </div>
 
   <!-- MODALS -->
 
-  <!-- SIGN UP MODAL (Uses Email Verification Code for NEW users) -->
+  <!-- SIGN UP MODAL -->
   <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
       <h3 class="text-2xl font-bold text-blue-900 mb-2">Create New Account</h3>
@@ -221,14 +217,14 @@
         
         <label class="block text-sm font-medium mb-1">Create Password</label>
         <input type="password" id="signup-password" required minlength="6" class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
-
+        
         <button type="submit" class="w-full bg-blue-900 text-white py-2 rounded-lg font-semibold hover:bg-blue-800 transition">Send Verification Code</button>
       </form>
       <button onclick="closeModal('signup-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
     </div>
   </div>
 
-  <!-- VERIFICATION CODE MODAL (For Signup) -->
+  <!-- VERIFICATION CODE MODAL -->
   <div id="verify-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
       <h3 class="text-2xl font-bold text-blue-900 mb-2">Enter Verification Code</h3>
@@ -241,7 +237,7 @@
     </div>
   </div>
 
-  <!-- LOG IN MODAL (Uses Password Direct Login) -->
+  <!-- LOG IN MODAL -->
   <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
       <h3 class="text-2xl font-bold text-blue-900 mb-2">Log In</h3>
@@ -268,8 +264,8 @@
       <form onsubmit="event.preventDefault(); submitPayment();">
         <label class="block text-sm font-medium mb-1">Select Country</label>
         <select id="country-select" onchange="updatePaymentMethods()" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900 bg-white">
+          <option value="UAE" selected>United Arab Emirates (UAE)</option>
           <option value="Ethiopia">Ethiopia</option>
-          <option value="UAE">United Arab Emirates (UAE)</option>
           <option value="USA">United States</option>
           <option value="UK">United Kingdom</option>
           <option value="Saudi Arabia">Saudi Arabia</option>
@@ -330,7 +326,7 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Courses Catalog Array with Updated "Sales of Luxury Products" price ($34) & ETB conversions
+    // Courses Catalog Array
     const coursesList = [
       { name: "Sales of Luxury Products", usd: 34, aed: 125, etb: 5644 },
       { name: "Accounting for Worldwide", usd: 65, aed: 240, etb: 10700 },
@@ -371,7 +367,6 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: userEmail })
         });
-
         const result = await response.json();
 
         if (response.ok) {
@@ -402,7 +397,6 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: userEmail, code: codeInput })
         });
-
         const result = await response.json();
 
         if (response.ok) {
@@ -418,7 +412,7 @@
       }
     }
 
-    // 3. LOGIN: DIRECT PASSWORD AUTHENTICATION (NO CODE)
+    // 3. LOGIN: DIRECT PASSWORD AUTHENTICATION
     function handlePasswordLogin() {
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
@@ -428,7 +422,6 @@
         return;
       }
 
-      // Direct password login
       alert("Login successful!");
       closeModal('login-modal');
       showCatalog();
@@ -437,6 +430,7 @@
     function renderCourseGrid() {
       const container = document.getElementById('course-grid');
       container.innerHTML = '';
+
       coursesList.forEach((course, index) => {
         const card = document.createElement('div');
         card.className = "bg-white rounded-xl shadow border p-6 flex flex-col justify-between";
@@ -512,13 +506,14 @@
           paymentSelect.appendChild(opt);
         });
       }
+
       renderPaymentInstructions();
     }
 
     function renderPaymentInstructions() {
       const method = document.getElementById('payment-method-select').value;
       const payBtn = document.getElementById('pay-button');
-      
+
       document.getElementById('mpesa-details').classList.add('hidden');
       document.getElementById('wallet-details').classList.add('hidden');
       document.getElementById('card-details').classList.add('hidden');
@@ -539,9 +534,11 @@
     function copyToClipboard(elementId, buttonId) {
       const input = document.getElementById(elementId);
       navigator.clipboard.writeText(input.value);
+
       const btn = document.getElementById(buttonId);
       btn.innerText = 'Copied!';
       btn.classList.replace('bg-blue-900', 'bg-green-600');
+
       setTimeout(() => {
         btn.innerText = 'Copy';
         btn.classList.replace('bg-green-600', 'bg-blue-900');
@@ -558,64 +555,30 @@
     function simulateVerification() {
       document.getElementById('pending-view').classList.add('hidden');
       document.getElementById('active-course-name').innerText = currentSelectedCourseObj.name;
-
-      const unitsContainer = document.getElementById('units-container');
-      unitsContainer.innerHTML = '';
-
-      const unitTopics = [
-        "Unit 1: Fundamentals & Strategic Frameworks",
-        "Unit 2: Applied Methodologies & Practical Tools",
-        "Unit 3: Case Studies & Industry Applications",
-        "Unit 4: Campaign Management & Optimization",
-        "Unit 5: Final Assessment & Professional Certification"
-      ];
-
-      unitTopics.forEach((unitTitle, idx) => {
-        const unitCard = document.createElement('div');
-        unitCard.className = "bg-white rounded-xl p-6 border shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4";
-        unitCard.innerHTML = `
-          <div>
-            <span class="text-xs font-bold text-amber-600 tracking-wide uppercase">Module ${idx + 1} of 5</span>
-            <h4 class="text-lg font-bold text-gray-800 mt-1">${unitTitle}</h4>
-            <p class="text-gray-600 text-sm mt-1">Comprehensive training content specifically tailored for <strong>${currentSelectedCourseObj.name}</strong>.</p>
-          </div>
-          <button onclick="downloadPDF('${currentSelectedCourseObj.name}', ${idx + 1})" class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-2 shrink-0">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            <span>Download PDF Unit ${idx + 1}</span>
-          </button>
-        `;
-        unitsContainer.appendChild(unitCard);
-      });
-
+      renderUnitsContainer();
       document.getElementById('classroom-view').classList.remove('hidden');
     }
 
-    function downloadPDF(courseName, unitNumber) {
-      const pdfTextContent = `=====================================================
-UAE TRAINING CENTER - OFFICIAL COURSE MATERIAL
-Course: ${courseName}
-Module: Unit ${unitNumber}
-Status: Verified & Accredited Document
-=====================================================
+    function renderUnitsContainer() {
+      const container = document.getElementById('units-container');
+      container.innerHTML = '';
 
-1. INTRODUCTION TO UNIT ${unitNumber}
-This training document contains official curriculum modules for ${courseName}.
-
-2. CORE OBJECTIVES & LEARNING OUTCOMES
-- Understand the foundational theories of ${courseName}.
-- Implement real-world strategy and industry best practices.
-- Complete practical exercises tailored to international standards.
-
-3. STUDY GUIDE & EXERCISES
-Review this unit thoroughly prior to taking your final certification assessment.
-
-© UAE Training Center - All Rights Reserved.`;
-
-      const blob = new Blob([pdfTextContent], { type: 'application/pdf' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `${courseName.replace(/[^a-zA-Z0-9]/g, '_')}_Unit_${unitNumber}.pdf`;
-      link.click();
+      for (let i = 1; i <= 5; i++) {
+        const unitDiv = document.createElement('div');
+        unitDiv.className = "bg-white border rounded-xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4";
+        unitDiv.innerHTML = `
+          <div>
+            <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Unit ${i}</span>
+            <h4 class="text-lg font-bold text-blue-900 mt-1">${currentSelectedCourseObj.name}: Fundamental Part ${i}</h4>
+            <p class="text-sm text-gray-600 mt-1">Study syllabus guide, case analysis, and operational guidelines for Module ${i}.</p>
+          </div>
+          <button onclick="alert('Downloading PDF Manual for Unit ${i}...');" class="bg-blue-900 hover:bg-blue-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center justify-center space-x-2 transition self-start md:self-auto">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span>Download PDF Manual</span>
+          </button>
+        `;
+        container.appendChild(unitDiv);
+      }
     }
   </script>
 </body>

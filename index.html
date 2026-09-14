@@ -7,7 +7,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- EmailJS SDK CDN -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
       // Initialize EmailJS with your Public Key
@@ -53,7 +53,7 @@
         <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Advance Your Career with Certified Professionals</h2>
         <p class="text-lg md:text-xl mb-6 text-blue-100 max-w-3xl mx-auto">Providing world-class professional training backed by top ministry standards across the UAE and internationally.</p>
 
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 max-w-2xl mx-auto mb-8 border border-white/20">
+        <div class="bg-white/15 backdrop-blur-md rounded-xl p-4 max-w-2xl mx-auto mb-8 border border-white/20">
           <p class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Official Accreditation</p>
           <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
         </div>
@@ -324,7 +324,7 @@
         passcode: generatedVerificationCode
       };
 
-      // Send via EmailJS using your Service ID and Template ID
+      // Send via EmailJS using your Service ID and Template ID with exact JSON/alert diagnostics
       emailjs.send('service_acld37s', 'template_zptn7sj', templateParams)
         .then(function(response) {
            btn.innerText = 'Send Verification Code';
@@ -336,8 +336,7 @@
         }, function(error) {
            btn.innerText = 'Send Verification Code';
            btn.disabled = false;
-           console.error('EmailJS Error:', error);
-           alert('Failed to send verification email. Please check your EmailJS Service/Template IDs or network connection.');
+           alert('Error JSON: ' + JSON.stringify(error));
         });
     }
 
@@ -377,169 +376,152 @@
       onUserSignedIn(foundUser);
     }
 
+    function logout() {
+      localStorage.removeItem('uae_active_user');
+      onUserSignedOut();
+      showHome();
+    }
+
     function onUserSignedIn(user) {
       document.getElementById('auth-buttons').classList.add('hidden');
       document.getElementById('user-profile').classList.remove('hidden');
       document.getElementById('user-name-display').innerText = user.fullname;
       showCatalog();
+      renderCourses();
     }
 
     function onUserSignedOut() {
       document.getElementById('auth-buttons').classList.remove('hidden');
       document.getElementById('user-profile').classList.add('hidden');
-      showHome();
     }
-
-    function logout() {
-      localStorage.removeItem('uae_active_user');
-      onUserSignedOut();
-    }
-
-    function renderCourseGrid() {
-      const container = document.getElementById('course-grid');
-      container.innerHTML = '';
-      coursesList.forEach((course, index) => {
-        const card = document.createElement('div');
-        card.className = "bg-white rounded-xl shadow border p-6 flex flex-col justify-between";
-        card.innerHTML = `
-          <div>
-            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Accredited Course</span>
-            <h3 class="text-xl font-bold mt-2 text-gray-800">${course.name}</h3>
-            <p class="text-gray-600 text-sm mt-2">Comprehensive professional certificate program including 5 core units and downloadable study materials.</p>
-          </div>
-          <div class="mt-6 flex justify-between items-center border-t pt-4">
-            <div>
-              <span class="text-2xl font-bold text-blue-900">$${course.usd}</span>
-              <span class="text-sm font-semibold text-gray-500 block">(${course.aed} AED)</span>
-            </div>
-            <button onclick="selectCourse(${index})" class="bg-blue-900 hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold">Enroll & Pay</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
     function showHome() {
-      document.getElementById('dashboard-view').classList.add('hidden');
-      document.getElementById('pending-view').classList.add('hidden');
-      document.getElementById('classroom-view').classList.add('hidden');
+      hideAllViews();
       document.getElementById('home-view').classList.remove('hidden');
     }
 
     function showCatalog() {
-      document.getElementById('home-view').classList.add('hidden');
-      document.getElementById('pending-view').classList.add('hidden');
-      document.getElementById('classroom-view').classList.add('hidden');
+      hideAllViews();
       document.getElementById('dashboard-view').classList.remove('hidden');
-      renderCourseGrid();
     }
 
-    function selectCourse(index) {
-      currentSelectedCourseObj = coursesList[index];
-      document.getElementById('selected-course-name').innerText = `${currentSelectedCourseObj.name} - $${currentSelectedCourseObj.usd} (${currentSelectedCourseObj.aed} AED)`;
+    function hideAllViews() {
+      document.getElementById('home-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('pending-view').classList.add('hidden');
+      document.getElementById('classroom-view').classList.add('hidden');
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function renderCourses() {
+      const grid = document.getElementById('course-grid');
+      grid.innerHTML = '';
+      coursesList.forEach((c) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-xl p-6 border shadow-sm flex flex-col justify-between';
+        card.innerHTML = `
+          <div>
+            <h4 class="font-bold text-lg text-blue-900 mb-2">${c.name}</h4>
+            <p class="text-xs text-gray-500 mb-4">Includes 5 structured modules & downloadable study guides.</p>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="font-bold text-green-700">${c.usd} USD / ${c.aed} AED</span>
+            <button onclick="openPaymentModal('${c.name}', ${c.usd}, ${c.aed}, ${c.etb})" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Enroll Now</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openPaymentModal(name, usd, aed, etb) {
+      currentSelectedCourseObj = { name, usd, aed, etb };
+      document.getElementById('selected-course-name').innerText = name;
       updatePaymentMethods();
       openModal('payment-modal');
     }
 
     function updatePaymentMethods() {
       const country = document.getElementById('country-select').value;
-      const paymentSelect = document.getElementById('payment-method-select');
-      paymentSelect.innerHTML = '';
+      const methodSelect = document.getElementById('payment-method-select');
+      methodSelect.innerHTML = '';
 
       if (country === 'Ethiopia') {
-        ['M-Pesa', 'PayPal', 'Bitget'].forEach(method => {
-          const opt = document.createElement('option');
-          opt.value = method;
-          opt.innerText = method;
-          paymentSelect.appendChild(opt);
-        });
+        methodSelect.innerHTML = `
+          <option value="mpesa">M-Pesa (Ethiopia)</option>
+          <option value="wallet">Crypto / Mobile Wallet ID</option>
+        `;
       } else {
-        ['PayPal', 'Bitget', 'Credit / Debit Card (Stripe)', 'Apple Pay'].forEach(method => {
-          const opt = document.createElement('option');
-          opt.value = method;
-          opt.innerText = method;
-          paymentSelect.appendChild(opt);
-        });
+        methodSelect.innerHTML = `
+          <option value="card">Credit / Debit Card</option>
+          <option value="wallet">Crypto / Merchant Wallet ID</option>
+        `;
       }
       renderPaymentInstructions();
     }
 
     function renderPaymentInstructions() {
       const method = document.getElementById('payment-method-select').value;
-      const payBtn = document.getElementById('pay-button');
-      
-      document.getElementById('mpesa-details').classList.add('hidden');
-      document.getElementById('wallet-details').classList.add('hidden');
-      document.getElementById('card-details').classList.add('hidden');
+      const mpesaBox = document.getElementById('mpesa-details');
+      const walletBox = document.getElementById('wallet-details');
+      const cardBox = document.getElementById('card-details');
 
-      if (method === 'M-Pesa') {
-        document.getElementById('mpesa-details').classList.remove('hidden');
-        document.getElementById('mpesa-price-tag').innerText = `${currentSelectedCourseObj.etb} ETB`;
-        payBtn.innerText = `Submit ${currentSelectedCourseObj.etb} ETB Payment`;
-      } else if (method === 'PayPal' || method === 'Bitget') {
-        document.getElementById('wallet-details').classList.remove('hidden');
-        payBtn.innerText = `Submit $${currentSelectedCourseObj.usd} / ${currentSelectedCourseObj.aed} AED Payment`;
-      } else {
-        document.getElementById('card-details').classList.remove('hidden');
-        payBtn.innerText = `Submit $${currentSelectedCourseObj.usd} / ${currentSelectedCourseObj.aed} AED Payment`;
+      mpesaBox.classList.add('hidden');
+      walletBox.classList.add('hidden');
+      cardBox.classList.add('hidden');
+
+      if (method === 'mpesa' && currentSelectedCourseObj) {
+        mpesaBox.classList.remove('hidden');
+        document.getElementById('mpesa-price-tag').innerText = currentSelectedCourseObj.etb.toLocaleString() + ' ETB';
+      } else if (method === 'wallet') {
+        walletBox.classList.remove('hidden');
+      } else if (method === 'card') {
+        cardBox.classList.remove('hidden');
       }
     }
 
-    function copyToClipboard(elementId, buttonId) {
-      const input = document.getElementById(elementId);
-      navigator.clipboard.writeText(input.value);
-      const btn = document.getElementById(buttonId);
+    function copyToClipboard(inputId, btnId) {
+      const input = document.getElementById(inputId);
+      input.select();
+      document.execCommand('copy');
+      const btn = document.getElementById(btnId);
+      const originalText = btn.innerText;
       btn.innerText = 'Copied!';
-      btn.classList.replace('bg-blue-900', 'bg-green-600');
-      setTimeout(() => {
-        btn.innerText = 'Copy';
-        btn.classList.replace('bg-green-600', 'bg-blue-900');
-      }, 2000);
+      setTimeout(() => { btn.innerText = originalText; }, 2000);
     }
 
     function submitPayment() {
       closeModal('payment-modal');
-      document.getElementById('dashboard-view').classList.add('hidden');
-      document.getElementById('pending-course-title').innerText = currentSelectedCourseObj.name;
+      hideAllViews();
       document.getElementById('pending-view').classList.remove('hidden');
+      document.getElementById('pending-course-title').innerText = currentSelectedCourseObj.name;
     }
 
     function simulateVerification() {
-      document.getElementById('pending-view').classList.add('hidden');
-      document.getElementById('active-course-name').innerText = currentSelectedCourseObj.name;
-
+      hideAllViews();
+      document.getElementById('classroom-view').classList.remove('hidden');
+      document.getElementById('active-course-name').innerText = currentSelectedCourseObj ? currentSelectedCourseObj.name : 'Selected Course Training';
+      
       const unitsContainer = document.getElementById('units-container');
       unitsContainer.innerHTML = '';
-
-      const modules = [
-        "Unit 1: Fundamentals & Strategic Foundations",
-        "Unit 2: Applied Operations & Market Execution",
-        "Unit 3: Advanced Analytics & Optimization",
-        "Unit 4: Regional Compliance & Case Studies",
-        "Unit 5: Capstone Assessment & Certification Guide"
-      ];
-
-      modules.forEach((modTitle, idx) => {
-        const unitCard = document.createElement('div');
-        unitCard.className = "bg-white border rounded-xl p-5 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4";
-        unitCard.innerHTML = `
+      for (let i = 1; i <= 5; i++) {
+        const u = document.createElement('div');
+        u.className = 'bg-white border rounded-xl p-5 flex items-center justify-between shadow-sm';
+        u.innerHTML = `
           <div>
-            <span class="text-xs font-bold text-amber-600 uppercase">Module ${idx + 1}</span>
-            <h4 class="text-lg font-bold text-blue-900 mt-1">${modTitle}</h4>
-            <p class="text-xs text-gray-500 mt-1">Complete study materials, readings, and downloadable syllabus manual.</p>
+            <h4 class="font-bold text-blue-900">Module ${i}: Core Principles & Application</h4>
+            <p class="text-xs text-gray-500">Read core concepts, review practical implementation examples.</p>
           </div>
-          <button onclick="alert('Downloading manual PDF for ${modTitle}...');" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2.5 rounded-lg font-semibold flex items-center space-x-2 shrink-0">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            <span>Download Manual PDF</span>
-          </button>
+          <button onclick="alert('Downloading Module ${i} PDF study guide...')" class="bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100 text-xs px-4 py-2 rounded-lg font-semibold transition">Download PDF Guide</button>
         `;
-        unitsContainer.appendChild(unitCard);
-      });
-
-      document.getElementById('classroom-view').classList.remove('hidden');
+        unitsContainer.appendChild(u);
+      }
     }
   </script>
 </body>

@@ -6,6 +6,16 @@
   <title>UAE Training Center</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- EmailJS SDK CDN -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      // Initialize EmailJS with your Public Key
+      emailjs.init({
+        publicKey: "fNKlatgsA9jp_N63h",
+      });
+    })();
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
@@ -135,13 +145,13 @@
         <label class="block text-sm font-medium mb-1">Password (min 6 characters)</label>
         <input type="password" id="reg-password" required minlength="6" placeholder="••••••••" class="w-full border rounded-lg px-3 py-2 mb-6 focus:outline-blue-900">
 
-        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold py-3 rounded-lg transition">Send Verification Code</button>
+        <button type="submit" id="send-code-btn" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold py-3 rounded-lg transition">Send Verification Code</button>
       </form>
 
       <!-- Verification Code Form (Hidden initially) -->
       <form id="signup-form-step2" class="hidden" onsubmit="event.preventDefault(); verifyAndRegister();">
         <div class="bg-blue-50 p-3 rounded-lg text-xs text-blue-900 mb-4">
-          We have generated your verification code. (For testing right now, your code is displayed in the alert box when sent!). Enter it below:
+          A verification code has been successfully emailed to your address. Please check your inbox and enter the 6-digit code below:
         </div>
         <label class="block text-sm font-medium mb-1">Enter 6-Digit Code</label>
         <input type="text" id="reg-code-input" required placeholder="123456" class="w-full border rounded-lg px-3 py-2 mb-6 text-center tracking-widest font-mono text-lg focus:outline-blue-900">
@@ -240,7 +250,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT & SECURE AUTH LOGIC -->
+  <!-- JAVASCRIPT & EMAILJS LOGIC -->
   <script>
     const coursesList = [
       { name: "Sales of Luxury Products", usd: 34, aed: 125, etb: 5644 },
@@ -302,18 +312,39 @@
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
       tempUserData = { fullname, email, password };
 
-      // Simulate sending code to email
-      alert(`Verification code sent to ${email}!\n\n[SIMULATED EMAIL CODE]: ${generatedVerificationCode}`);
+      // Change button text to show loading state
+      const btn = document.getElementById('send-code-btn');
+      btn.innerText = 'Sending Email...';
+      btn.disabled = true;
 
-      // Switch modal view to step 2 (enter code)
-      document.getElementById('signup-form-step1').classList.add('hidden');
-      document.getElementById('signup-form-step2').classList.remove('hidden');
+      // Parameters passed to EmailJS template
+      const templateParams = {
+        to_email: email,
+        to_name: fullname,
+        passcode: generatedVerificationCode
+      };
+
+      // Send via EmailJS using your Service ID and Template ID
+      emailjs.send('service_acld37s', 'template_x4cl88r', templateParams)
+        .then(function(response) {
+           btn.innerText = 'Send Verification Code';
+           btn.disabled = false;
+           alert('Verification code sent successfully to ' + email + '!');
+           // Switch modal view to step 2 (enter code)
+           document.getElementById('signup-form-step1').classList.add('hidden');
+           document.getElementById('signup-form-step2').classList.remove('hidden');
+        }, function(error) {
+           btn.innerText = 'Send Verification Code';
+           btn.disabled = false;
+           console.error('EmailJS Error:', error);
+           alert('Failed to send verification email. Please check your EmailJS Service/Template IDs or network connection.');
+        });
     }
 
     function verifyAndRegister() {
       const enteredCode = document.getElementById('reg-code-input').value;
       if (enteredCode !== generatedVerificationCode) {
-        alert('Incorrect verification code. Please check and try again.');
+        alert('Incorrect verification code. Please check your email and try again.');
         return;
       }
 

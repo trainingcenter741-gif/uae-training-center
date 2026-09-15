@@ -12,7 +12,7 @@
     (function() {
       // Initialize EmailJS with your Public Key
       emailjs.init({
-        publicKey: "fNKlatgsA9jp_N63h",
+        publicKey: "XZI69C7LOps2VUtbD",
       });
     })();
   </script>
@@ -324,8 +324,8 @@
         passcode: generatedVerificationCode
       };
 
-      // Send via EmailJS using your Service ID and Template ID with exact JSON/alert diagnostics
-      emailjs.send('service_acld37s', 'template_zptn7sj', templateParams)
+      // Send via EmailJS using your Service ID (service_451aowr) and Template ID (template_lzjtbt8)
+      emailjs.send('service_451aowr', 'template_lzjtbt8', templateParams)
         .then(function(response) {
            btn.innerText = 'Send Verification Code';
            btn.disabled = false;

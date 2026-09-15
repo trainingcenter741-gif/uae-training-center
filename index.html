@@ -15,7 +15,7 @@
     })();
   </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
   <!-- NAVIGATION BAR -->
   <nav class="bg-blue-900 text-white shadow-md sticky top-0 z-40">
@@ -33,98 +33,133 @@
 
       <!-- User Profile (Logged In) -->
       <div id="user-profile" class="hidden flex items-center space-x-4">
+        <button onclick="showCatalog()" class="text-xs md:text-sm text-blue-200 hover:text-white transition">Catalog</button>
+        <button onclick="showMyEnrolledCourses()" class="text-xs md:text-sm text-amber-400 hover:text-amber-300 font-medium transition">My Learning</button>
         <span id="user-name-display" class="text-xs bg-blue-950 px-3 py-1.5 rounded-full border border-blue-700 text-amber-400 font-medium"></span>
         <button onclick="logout()" class="bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-semibold transition text-blue-950">Log Out</button>
       </div>
     </div>
   </nav>
 
-  <!-- 1. HOME PAGE VIEW -->
-  <div id="home-view">
-    <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white py-20 px-4 text-center relative overflow-hidden">
-      <div class="max-w-4xl mx-auto relative z-10">
-        <div class="inline-flex items-center space-x-2 bg-blue-950/80 border border-amber-500/40 px-4 py-1.5 rounded-full text-xs font-semibold text-amber-400 mb-6">
-          <span class="text-base">🇦🇪</span>
-          <span>United Arab Emirates Accredited Institution</span>
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-grow">
+    <!-- 1. HOME PAGE VIEW -->
+    <div id="home-view">
+      <section class="bg-gradient-to-r from-blue-950 via-blue-900 to-blue-800 text-white py-20 px-4 text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+          <div class="inline-flex items-center space-x-2 bg-blue-950/80 border border-amber-500/40 px-4 py-1.5 rounded-full text-xs font-semibold text-amber-400 mb-6">
+            <span class="text-base">🇦🇪</span>
+            <span>United Arab Emirates Accredited Institution</span>
+          </div>
+
+          <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Advance Your Career with Certified Professionals</h2>
+          <p class="text-lg md:text-xl mb-6 text-blue-100 max-w-3xl mx-auto">Providing world-class professional training backed by top ministry standards across the UAE and internationally.</p>
+
+          <div class="bg-white/15 backdrop-blur-md rounded-xl p-4 max-w-2xl mx-auto mb-8 border border-white/20">
+            <p class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Official Accreditation</p>
+            <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
+          </div>
+
+          <button onclick="openSignupModal()" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
         </div>
+      </section>
 
-        <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Advance Your Career with Certified Professionals</h2>
-        <p class="text-lg md:text-xl mb-6 text-blue-100 max-w-3xl mx-auto">Providing world-class professional training backed by top ministry standards across the UAE and internationally.</p>
+      <section class="max-w-7xl mx-auto px-4 py-16">
+        <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          <div>
+            <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">About Our Center</span>
+            <h3 class="text-3xl md:text-4xl font-extrabold text-blue-900 mt-2 mb-4">Empowering Workforce Excellence in the UAE</h3>
+            <p class="text-gray-600 leading-relaxed mb-4">The UAE Training Center stands as a premier hub for professional career acceleration. Established to support the region's vision of a knowledge-based economy, we bridge theoretical learning with practical workplace execution.</p>
+          </div>
 
-        <div class="bg-white/15 backdrop-blur-md rounded-xl p-4 max-w-2xl mx-auto mb-8 border border-white/20">
-          <p class="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Official Accreditation</p>
-          <p class="text-sm font-medium text-white">Programs provided in alignment with the <strong>UAE Ministry of Education</strong> & <strong>National Qualifications Authority (NQA)</strong> guidance.</p>
+          <div class="bg-blue-50 rounded-2xl p-8 border border-blue-100 shadow-sm">
+            <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Our Purpose & Mission</span>
+            <h4 class="text-2xl font-bold text-blue-900 mt-2 mb-4">Why Choose UAE Training Center</h4>
+            <ul class="space-y-4 text-gray-700 text-sm">
+              <li class="flex items-start space-x-3"><span class="text-green-600 font-bold">✓</span><span><strong>Skill Accreditation:</strong> Receive verified qualifications aligned with national standards.</span></li>
+              <li class="flex items-start space-x-3"><span class="text-green-600 font-bold">✓</span><span><strong>Career Acceleration:</strong> Equip yourself with high-demand professional skills.</span></li>
+              <li class="flex items-start space-x-3"><span class="text-green-600 font-bold">✓</span><span><strong>Downloadable PDF Manuals:</strong> Access 5 detailed learning units per course.</span></li>
+            </ul>
+          </div>
         </div>
+      </section>
+    </div>
 
-        <button onclick="openSignupModal()" class="bg-amber-500 hover:bg-amber-600 text-blue-950 text-lg font-bold px-8 py-3 rounded-xl shadow-lg transition">Get Started Today</button>
-      </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-4 py-16">
-      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+    <!-- 2. MAIN CATALOG DASHBOARD VIEW -->
+    <div id="dashboard-view" class="hidden max-w-7xl mx-auto px-4 py-12">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b pb-4 gap-4">
         <div>
-          <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">About Our Center</span>
-          <h3 class="text-3xl md:text-4xl font-extrabold text-blue-900 mt-2 mb-4">Empowering Workforce Excellence in the UAE</h3>
-          <p class="text-gray-600 leading-relaxed mb-4">The UAE Training Center stands as a premier hub for professional career acceleration. Established to support the region's vision of a knowledge-based economy, we bridge theoretical learning with practical workplace execution.</p>
+          <h2 class="text-3xl font-bold text-blue-900">Available Training Courses</h2>
+          <p class="text-gray-600">Explore our professional certifications and enroll today.</p>
         </div>
-
-        <div class="bg-blue-50 rounded-2xl p-8 border border-blue-100 shadow-sm">
-          <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Our Purpose & Mission</span>
-          <h4 class="text-2xl font-bold text-blue-900 mt-2 mb-4">Why Choose UAE Training Center</h4>
-          <ul class="space-y-4 text-gray-700 text-sm">
-            <li class="flex items-start space-x-3"><span class="text-green-600 font-bold">✓</span><span><strong>Skill Accreditation:</strong> Receive verified qualifications aligned with national standards.</span></li>
-            <li class="flex items-start space-x-3"><span class="text-green-600 font-bold">✓</span><span><strong>Career Acceleration:</strong> Equip yourself with high-demand professional skills.</span></li>
-            <li class="flex items-start space-x-3"><span class="text-green-600 font-bold">✓</span><span><strong>Downloadable PDF Manuals:</strong> Access 5 detailed learning units per course.</span></li>
-          </ul>
+        <div class="w-full md:w-64">
+          <input type="text" id="course-search" oninput="renderCourses()" placeholder="Search courses..." class="w-full border rounded-lg px-4 py-2 text-sm focus:outline-blue-900">
         </div>
       </div>
-    </section>
-  </div>
-
-  <!-- 2. MAIN CATALOG DASHBOARD VIEW -->
-  <div id="dashboard-view" class="hidden max-w-7xl mx-auto px-4 py-12">
-    <div class="flex justify-between items-center mb-8 border-b pb-4">
-      <div>
-        <h2 class="text-3xl font-bold text-blue-900">Available Training Courses</h2>
-        <p class="text-gray-600">Explore our professional certifications and enroll today.</p>
-      </div>
-    </div>
-    <div id="course-grid" class="grid md:grid-cols-3 gap-6"></div>
-  </div>
-
-  <!-- 3. PAYMENT PENDING VIEW -->
-  <div id="pending-view" class="hidden max-w-3xl mx-auto px-4 py-20 text-center">
-    <div class="bg-white rounded-2xl p-8 shadow-xl border">
-      <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-      </div>
-      <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-3">Submission Received!</h3>
-      <p id="pending-course-title" class="text-amber-600 font-semibold mb-4 text-lg"></p>
-      
-      <div class="bg-blue-50 border-l-4 border-blue-900 p-4 mb-6 text-left rounded-r">
-        <p class="text-gray-800 font-semibold text-base">
-          You have successfully submitted payment. After 72 hours we will verify payment and unlock your course materials. Thank you.
-        </p>
-      </div>
-      
-      <button onclick="simulateVerification()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition shadow">
-        [Demo Mode] Simulate 72 Hours Later & Start Training
-      </button>
-    </div>
-  </div>
-
-  <!-- 4. ACTIVE COURSE LEARNING VIEW -->
-  <div id="classroom-view" class="hidden max-w-5xl mx-auto px-4 py-12">
-    <div class="bg-blue-900 text-white rounded-2xl p-8 mb-8 shadow-lg">
-      <span class="bg-green-500 text-blue-950 font-bold text-xs uppercase px-3 py-1 rounded-full">Payment Confirmed & Verified</span>
-      <h2 id="active-course-name" class="text-3xl font-extrabold mt-3 mb-2"></h2>
-      <p class="text-blue-100">Welcome to your training room. Below are your 5 course modules and downloadable PDF guides.</p>
-      <button onclick="showCatalog()" class="mt-4 text-xs underline text-blue-200 hover:text-white">&larr; Back to Course List</button>
+      <div id="course-grid" class="grid md:grid-cols-3 gap-6"></div>
     </div>
 
-    <h3 class="text-2xl font-bold text-gray-800 mb-6">Course Modules & Materials</h3>
-    <div id="units-container" class="space-y-4"></div>
-  </div>
+    <!-- 2.5 MY ENROLLED COURSES VIEW -->
+    <div id="enrolled-view" class="hidden max-w-7xl mx-auto px-4 py-12">
+      <div class="mb-8 border-b pb-4 flex justify-between items-center">
+        <div>
+          <h2 class="text-3xl font-bold text-blue-900">My Learning Dashboard</h2>
+          <p class="text-gray-600">Manage your pending verifications and active classrooms.</p>
+        </div>
+        <button onclick="showCatalog()" class="bg-blue-900 text-white text-xs px-4 py-2 rounded-lg font-semibold hover:bg-blue-800 transition">&larr; Back to Catalog</button>
+      </div>
+      <div id="enrolled-list" class="space-y-4"></div>
+    </div>
+
+    <!-- 3. PAYMENT PENDING VIEW -->
+    <div id="pending-view" class="hidden max-w-3xl mx-auto px-4 py-20 text-center">
+      <div class="bg-white rounded-2xl p-8 shadow-xl border">
+        <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-3">Submission Received!</h3>
+        <p id="pending-course-title" class="text-amber-600 font-semibold mb-4 text-lg"></p>
+        
+        <div class="bg-blue-50 border-l-4 border-blue-900 p-4 mb-6 text-left rounded-r">
+          <p class="text-gray-800 font-semibold text-base">
+            You have successfully submitted payment. After 72 hours we will verify payment and unlock your course materials. Thank you.
+          </p>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <button onclick="simulateVerification()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition shadow">
+            [Demo Mode] Simulate 72 Hours Later & Start Training
+          </button>
+          <button onclick="showMyEnrolledCourses()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold px-6 py-3 rounded-xl transition">
+            Go to My Learning
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ACTIVE COURSE LEARNING VIEW -->
+    <div id="classroom-view" class="hidden max-w-5xl mx-auto px-4 py-12">
+      <div class="bg-blue-900 text-white rounded-2xl p-8 mb-8 shadow-lg">
+        <span class="bg-green-500 text-blue-950 font-bold text-xs uppercase px-3 py-1 rounded-full">Payment Confirmed & Verified</span>
+        <h2 id="active-course-name" class="text-3xl font-extrabold mt-3 mb-2"></h2>
+        <p class="text-blue-100">Welcome to your training room. Below are your 5 course modules and downloadable PDF guides.</p>
+        <div class="mt-4 flex gap-4">
+          <button onclick="showMyEnrolledCourses()" class="text-xs underline text-blue-200 hover:text-white">&larr; Back to My Learning</button>
+          <button onclick="showCatalog()" class="text-xs underline text-blue-200 hover:text-white">&larr; Back to Course Catalog</button>
+        </div>
+      </div>
+
+      <h3 class="text-2xl font-bold text-gray-800 mb-6">Course Modules & Materials</h3>
+      <div id="units-container" class="space-y-4"></div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-blue-950 text-blue-300 py-8 border-t border-blue-900 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
+      <p>&copy; 2026 UAE Training Center. All rights reserved. Aligned with national training accreditation frameworks.</p>
+    </div>
+  </footer>
 
   <!-- SIGN UP MODAL (Step 1: Details -> Step 2: Verification Code) -->
   <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -274,6 +309,7 @@
     let currentSelectedCourseObj = null;
     let tempUserData = {};
     let generatedVerificationCode = '';
+    let currentActiveUserEmail = null;
 
     window.addEventListener('load', () => {
       const activeUser = localStorage.getItem('uae_active_user');
@@ -283,6 +319,14 @@
         onUserSignedOut();
       }
     });
+
+    function getEnrollmentsStore() {
+      return JSON.parse(localStorage.getItem('uae_enrollments') || '{}');
+    }
+
+    function saveEnrollmentsStore(store) {
+      localStorage.setItem('uae_enrollments', JSON.stringify(store));
+    }
 
     function openSignupModal() {
       document.getElementById('signup-form-step1').classList.remove('hidden');
@@ -368,11 +412,13 @@
 
     function logout() {
       localStorage.removeItem('uae_active_user');
+      currentActiveUserEmail = null;
       onUserSignedOut();
       showHome();
     }
 
     function onUserSignedIn(user) {
+      currentActiveUserEmail = user.email;
       document.getElementById('auth-buttons').classList.add('hidden');
       document.getElementById('user-profile').classList.remove('hidden');
       document.getElementById('user-name-display').innerText = user.fullname;
@@ -393,11 +439,19 @@
     function showCatalog() {
       hideAllViews();
       document.getElementById('dashboard-view').classList.remove('hidden');
+      renderCourses();
+    }
+
+    function showMyEnrolledCourses() {
+      hideAllViews();
+      document.getElementById('enrolled-view').classList.remove('hidden');
+      renderMyEnrolledCourses();
     }
 
     function hideAllViews() {
       document.getElementById('home-view').classList.add('hidden');
       document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('enrolled-view').classList.add('hidden');
       document.getElementById('pending-view').classList.add('hidden');
       document.getElementById('classroom-view').classList.add('hidden');
     }
@@ -412,8 +466,23 @@
 
     function renderCourses() {
       const grid = document.getElementById('course-grid');
+      const searchQuery = (document.getElementById('course-search')?.value || '').toLowerCase();
       grid.innerHTML = '';
-      coursesList.forEach((c) => {
+      
+      const filtered = coursesList.filter(c => c.name.toLowerCase().includes(searchQuery));
+      const store = getEnrollmentsStore();
+      const userEnrollments = store[currentActiveUserEmail] || {};
+
+      filtered.forEach((c) => {
+        const status = userEnrollments[c.name];
+        let actionBtnHTML = `<button onclick="openPaymentModal('${c.name.replace(/'/g, "\\'")}', ${c.usd}, ${c.aed}, ${c.etb})" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Enroll Now</button>`;
+        
+        if (status === 'verified') {
+          actionBtnHTML = `<button onclick="openClassroom('${c.name.replace(/'/g, "\\'")}')" class="bg-green-600 hover:bg-green-700 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Open Classroom</button>`;
+        } else if (status === 'pending') {
+          actionBtnHTML = `<span class="bg-amber-100 text-amber-800 text-xs px-3 py-1.5 rounded-lg font-semibold">Verification Pending</span>`;
+        }
+
         const card = document.createElement('div');
         card.className = 'bg-white rounded-xl p-6 border shadow-sm flex flex-col justify-between';
         card.innerHTML = `
@@ -422,15 +491,69 @@
             <p class="text-xs text-gray-500 mb-4">Includes 5 structured modules & downloadable study guides.</p>
           </div>
           <div class="mt-4 flex items-center justify-between">
-            <span class="font-bold text-green-700">${c.usd} USD / ${c.aed} AED</span>
-            <button onclick="openPaymentModal('${c.name}', ${c.usd}, ${c.aed}, ${c.etb})" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Enroll Now</button>
+            <span class="font-bold text-green-700 text-sm">${c.usd} USD / ${c.aed} AED</span>
+            ${actionBtnHTML}
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
+    function renderMyEnrolledCourses() {
+      const listDiv = document.getElementById('enrolled-list');
+      listDiv.innerHTML = '';
+      const store = getEnrollmentsStore();
+      const userEnrollments = store[currentActiveUserEmail] || {};
+      const enrolledNames = Object.keys(userEnrollments);
+
+      if (enrolledNames.length === 0) {
+        listDiv.innerHTML = `
+          <div class="bg-white rounded-xl p-8 border text-center text-gray-500">
+            <p class="mb-4">You haven't enrolled in any courses yet.</p>
+            <button onclick="showCatalog()" class="bg-blue-900 text-white text-xs px-4 py-2 rounded-lg font-semibold">Browse Catalog</button>
+          </div>
+        `;
+        return;
+      }
+
+      enrolledNames.forEach(courseName => {
+        const status = userEnrollments[courseName];
+        const courseObj = coursesList.find(c => c.name === courseName) || { name: courseName };
+        const row = document.createElement('div');
+        row.className = 'bg-white rounded-xl p-5 border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4';
+        
+        let statusBadge = '';
+        let actionHTML = '';
+
+        if (status === 'verified') {
+          statusBadge = '<span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">Verified / Active</span>';
+          actionHTML = `<button onclick="openClassroom('${courseName.replace(/'/g, "\\'")}')" class="bg-green-600 hover:bg-green-700 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Go to Classroom</button>`;
+        } else {
+          statusBadge = '<span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Pending Verification (72h)</span>';
+          actionHTML = `
+            <button onclick="simulateVerificationForCourse('${courseName.replace(/'/g, "\\'")}')" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">
+              [Demo] Force Verify
+            </button>
+          `;
+        }
+
+        row.innerHTML = `
+          <div>
+            <h4 class="font-bold text-lg text-blue-900">${courseName}</h4>
+            <div class="mt-1">${statusBadge}</div>
+          </div>
+          <div>${actionHTML}</div>
+        `;
+        listDiv.appendChild(row);
+      });
+    }
+
     function openPaymentModal(name, usd, aed, etb) {
+      if (!currentActiveUserEmail) {
+        alert('Please log in or sign up before enrolling in courses.');
+        openLoginModal();
+        return;
+      }
       currentSelectedCourseObj = { name, usd, aed, etb };
       document.getElementById('selected-course-name').innerText = name;
       updatePaymentMethods();
@@ -487,6 +610,12 @@
     }
 
     function submitPayment() {
+      if (!currentActiveUserEmail || !currentSelectedCourseObj) return;
+      const store = getEnrollmentsStore();
+      if (!store[currentActiveUserEmail]) store[currentActiveUserEmail] = {};
+      store[currentActiveUserEmail][currentSelectedCourseObj.name] = 'pending';
+      saveEnrollmentsStore(store);
+
       closeModal('payment-modal');
       hideAllViews();
       document.getElementById('pending-view').classList.remove('hidden');
@@ -494,21 +623,40 @@
     }
 
     function simulateVerification() {
+      if (!currentSelectedCourseObj || !currentActiveUserEmail) return;
+      simulateVerificationForCourse(currentSelectedCourseObj.name);
+    }
+
+    function simulateVerificationForCourse(courseName) {
+      const store = getEnrollmentsStore();
+      if (!store[currentActiveUserEmail]) store[currentActiveUserEmail] = {};
+      store[currentActiveUserEmail][courseName] = 'verified';
+      saveEnrollmentsStore(store);
+
+      const targetObj = coursesList.find(c => c.name === courseName) || { name: courseName };
+      currentSelectedCourseObj = targetObj;
+      openClassroom(courseName);
+    }
+
+    function openClassroom(courseName) {
+      const targetObj = coursesList.find(c => c.name === courseName);
+      if (targetObj) currentSelectedCourseObj = targetObj;
+
       hideAllViews();
       document.getElementById('classroom-view').classList.remove('hidden');
-      document.getElementById('active-course-name').innerText = currentSelectedCourseObj ? currentSelectedCourseObj.name : 'Selected Course Training';
+      document.getElementById('active-course-name').innerText = courseName;
       
       const unitsContainer = document.getElementById('units-container');
       unitsContainer.innerHTML = '';
       for (let i = 1; i <= 5; i++) {
         const u = document.createElement('div');
-        u.className = 'bg-white border rounded-xl p-5 flex items-center justify-between shadow-sm';
+        u.className = 'bg-white border rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-sm gap-4';
         u.innerHTML = `
           <div>
             <h4 class="font-bold text-blue-900">Module ${i}: Core Principles & Application</h4>
             <p class="text-xs text-gray-500">Read core concepts, review practical implementation examples.</p>
           </div>
-          <button onclick="alert('Downloading Module ${i} PDF study guide...')" class="bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100 text-xs px-4 py-2 rounded-lg font-semibold transition">Download PDF Guide</button>
+          <button onclick="alert('Downloading Module ${i} PDF study guide for ${courseName.replace(/'/g, "\\'")}')" class="bg-blue-50 text-blue-900 border border-blue-200 hover:bg-blue-100 text-xs px-4 py-2 rounded-lg font-semibold transition shrink-0">Download PDF Guide</button>
         `;
         unitsContainer.appendChild(u);
       }

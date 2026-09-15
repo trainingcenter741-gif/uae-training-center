@@ -10,10 +10,8 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script type="text/javascript">
     (function() {
-      // Initialize EmailJS with your Public Key
-      emailjs.init({
-        publicKey: "XZI69C7LOps2VUtbD",
-      });
+      // Initialize EmailJS with your verified Public Key
+      emailjs.init("8I-qUdFmKXqQkgTSl");
     })();
   </script>
 </head>
@@ -301,36 +299,30 @@
       const email = document.getElementById('reg-email').value;
       const password = document.getElementById('reg-password').value;
 
-      // Check if user already exists
       let users = JSON.parse(localStorage.getItem('uae_registered_users') || '[]');
       if (users.some(u => u.email === email)) {
         alert('An account with this email already exists! Please log in.');
         return;
       }
 
-      // Generate 6 digit code
       generatedVerificationCode = Math.floor(100000 + Math.random() * 900000).toString();
       tempUserData = { fullname, email, password };
 
-      // Change button text to show loading state
       const btn = document.getElementById('send-code-btn');
       btn.innerText = 'Sending Email...';
       btn.disabled = true;
 
-      // Parameters passed to EmailJS template
       const templateParams = {
         to_email: email,
         to_name: fullname,
         passcode: generatedVerificationCode
       };
 
-      // Send via EmailJS using your Service ID (service_451aowr) and Template ID (template_lzjtbt8)
       emailjs.send('service_451aowr', 'template_lzjtbt8', templateParams)
         .then(function(response) {
            btn.innerText = 'Send Verification Code';
            btn.disabled = false;
            alert('Verification code sent successfully to ' + email + '!');
-           // Switch modal view to step 2 (enter code)
            document.getElementById('signup-form-step1').classList.add('hidden');
            document.getElementById('signup-form-step2').classList.remove('hidden');
         }, function(error) {
@@ -347,12 +339,10 @@
         return;
       }
 
-      // Save user to database (localStorage)
       let users = JSON.parse(localStorage.getItem('uae_registered_users') || '[]');
       users.push(tempUserData);
       localStorage.setItem('uae_registered_users', JSON.stringify(users));
 
-      // Auto login user
       localStorage.setItem('uae_active_user', JSON.stringify(tempUserData));
       closeModal('signup-modal');
       onUserSignedIn(tempUserData);

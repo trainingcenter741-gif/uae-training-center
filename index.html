@@ -82,6 +82,77 @@
             </ul>
           </div>
         </div>
+
+        <!-- FEATURED TRAINING & CERTIFICATE GALLERY -->
+        <div class="mb-16">
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <span class="text-amber-600 font-bold text-sm uppercase tracking-wider">Visual Showcase</span>
+            <h3 class="text-3xl font-extrabold text-blue-900 mt-2">Training Programs & Official Certificates</h3>
+            <p class="text-gray-600 text-sm mt-2">Take a glimpse into our interactive professional training sessions and the recognized credentials you will earn.</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Item 1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border">
+              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80" alt="Executive Leadership Training" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded">Training Session</span>
+                <h4 class="font-bold text-lg text-blue-900 mt-2">Executive Leadership & Strategy</h4>
+                <p class="text-xs text-gray-600 mt-1">Interactive live workshops focusing on corporate vision, decision-making frameworks, and sustainable business management.</p>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" alt="Digital Marketing Masterclass" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded">Training Session</span>
+                <h4 class="font-bold text-lg text-blue-900 mt-2">Digital Marketing & Ads Lab</h4>
+                <p class="text-xs text-gray-600 mt-1">Hands-on tutorials utilizing modern ad performance tools, search engine placement optimization, and consumer analytics.</p>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border">
+              <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80" alt="Advanced Accounting Workshop" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded">Training Session</span>
+                <h4 class="font-bold text-lg text-blue-900 mt-2">Global Accounting Standards</h4>
+                <p class="text-xs text-gray-600 mt-1">Comprehensive financial reporting simulation classes designed to master international accounting and auditing compliance.</p>
+              </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Luxury Sales Seminar" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded">Training Session</span>
+                <h4 class="font-bold text-lg text-blue-900 mt-2">Luxury Retail & Inbound Sales</h4>
+                <p class="text-xs text-gray-600 mt-1">Specialized customer experience training geared toward high-end product presentation and client relationship building.</p>
+              </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Collaborative Team Seminar" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded">Training Session</span>
+                <h4 class="font-bold text-lg text-blue-900 mt-2">Entrepreneurship & RevOps</h4>
+                <p class="text-xs text-gray-600 mt-1">Peer group synergy exercises taking innovative business models from initial concepts to scalable market realities.</p>
+              </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border">
+              <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=600&q=80" alt="Official Certificate of Completion" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded">Accredited Credential</span>
+                <h4 class="font-bold text-lg text-blue-900 mt-2">Official Certificate of Completion</h4>
+                <p class="text-xs text-gray-600 mt-1">Receive a verifiable certification document bearing institutional credentials, ready for professional portfolios and LinkedIn.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
 
@@ -121,8 +192,11 @@
         <p id="pending-course-title" class="text-amber-600 font-semibold mb-4 text-lg"></p>
         
         <div class="bg-blue-50 border-l-4 border-blue-900 p-4 mb-6 text-left rounded-r">
-          <p class="text-gray-800 font-semibold text-base">
-            You have successfully submitted payment. After 72 hours we will verify payment and unlock your course materials. Thank you.
+          <p class="text-gray-800 font-semibold text-base mb-2">
+            Your payment is under review.
+          </p>
+          <p class="text-gray-700 text-sm">
+            You have successfully submitted payment and uploaded your screenshot. After 72 hours we will verify payment and unlock your course materials. Thank you.
           </p>
         </div>
         
@@ -224,8 +298,8 @@
       <form onsubmit="event.preventDefault(); submitPayment();">
         <label class="block text-sm font-medium mb-1">Select Country</label>
         <select id="country-select" onchange="updatePaymentMethods()" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900 bg-white">
+          <option value="UAE" selected>United Arab Emirates (UAE)</option>
           <option value="Ethiopia">Ethiopia</option>
-          <option value="UAE">United Arab Emirates (UAE)</option>
           <option value="USA">United States</option>
           <option value="UK">United Kingdom</option>
           <option value="Saudi Arabia">Saudi Arabia</option>
@@ -240,16 +314,16 @@
           <p class="text-xs text-gray-500 font-bold uppercase mb-2">M-Pesa Details</p>
           <div class="mb-2">
             <span class="text-xs text-gray-500 block">Account Name:</span>
-            <span class="font-bold text-gray-800">Yitbarek</span>
+            <span class="font-bold text-gray-800">ytayal ybeltal</span>
           </div>
           <div class="mb-2">
             <span class="text-xs text-gray-500 block">Required Amount:</span>
-            <span id="mpesa-price-tag" class="font-bold text-green-700 text-base">5,644 ETB</span>
+            <span id="mpesa-price-tag" class="font-bold text-green-700 text-base">0 ETB</span>
           </div>
           <div class="mb-4">
             <span class="text-xs text-gray-500 block">M-Pesa Phone Number:</span>
             <div class="flex items-center space-x-2 mt-1">
-              <input type="text" readonly id="mpesa-number" value="0712345678" class="bg-white border rounded px-2 py-1 font-mono text-sm w-full font-bold text-blue-900">
+              <input type="text" readonly id="mpesa-number" value="0714680614" class="bg-white border rounded px-2 py-1 font-mono text-sm w-full font-bold text-blue-900">
               <button type="button" onclick="copyToClipboard('mpesa-number', 'mpesa-btn')" id="mpesa-btn" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-3 py-1.5 rounded font-semibold transition">Copy</button>
             </div>
           </div>
@@ -286,24 +360,24 @@
   <!-- JAVASCRIPT & EMAILJS LOGIC -->
   <script>
     const coursesList = [
-      { name: "Sales of Luxury Products", usd: 34, aed: 125, etb: 5644 },
-      { name: "Accounting for Worldwide", usd: 65, aed: 240, etb: 10700 },
-      { name: "Google Digital Marketing & E-commerce Certificate", usd: 180, aed: 660, etb: 29700 },
-      { name: "Digital Marketing Certification Course", usd: 120, aed: 440, etb: 19800 },
-      { name: "Meta Social Media Marketing Professional Certificate", usd: 150, aed: 550, etb: 24750 },
-      { name: "Adobe Marketing Specialist Certificate", usd: 195, aed: 715, etb: 32175 },
-      { name: "Content Marketing", usd: 45, aed: 165, etb: 7425 },
-      { name: "Marketing Psychology & Neuromarketing", usd: 85, aed: 310, etb: 14025 },
-      { name: "Business and Marketing Strategies", usd: 140, aed: 515, etb: 23100 },
-      { name: "Marketing Strategy", usd: 90, aed: 330, etb: 14850 },
-      { name: "Entrepreneurship – From Ideas to Reality", usd: 110, aed: 405, etb: 18150 },
-      { name: "Inbound Sales", usd: 75, aed: 275, etb: 12375 },
-      { name: "Revenue Operations (RevOps)", usd: 210, aed: 770, etb: 34650 },
-      { name: "Introduction to Marketing", usd: 50, aed: 185, etb: 8250 },
-      { name: "Marketing Analytics Foundation", usd: 130, aed: 475, etb: 21450 },
-      { name: "Google Ads Search", usd: 160, aed: 585, etb: 26400 },
-      { name: "AI-Powered Performance Ads", usd: 250, aed: 915, etb: 41250 },
-      { name: "Google Analytics", usd: 175, aed: 640, etb: 28875 }
+      { name: "Sales of Luxury Products", usd: 34, aed: 125, etb: Math.round(34 * 166) },
+      { name: "Accounting for Worldwide", usd: 65, aed: 240, etb: Math.round(65 * 166) },
+      { name: "Google Digital Marketing & E-commerce Certificate", usd: 180, aed: 660, etb: Math.round(180 * 166) },
+      { name: "Digital Marketing Certification Course", usd: 120, aed: 440, etb: Math.round(120 * 166) },
+      { name: "Meta Social Media Marketing Professional Certificate", usd: 150, aed: 550, etb: Math.round(150 * 166) },
+      { name: "Adobe Marketing Specialist Certificate", usd: 195, aed: 715, etb: Math.round(195 * 166) },
+      { name: "Content Marketing", usd: 45, aed: 165, etb: Math.round(45 * 166) },
+      { name: "Marketing Psychology & Neuromarketing", usd: 85, aed: 310, etb: Math.round(85 * 166) },
+      { name: "Business and Marketing Strategies", usd: 140, aed: 515, etb: Math.round(140 * 166) },
+      { name: "Marketing Strategy", usd: 90, aed: 330, etb: Math.round(90 * 166) },
+      { name: "Entrepreneurship – From Ideas to Reality", usd: 110, aed: 405, etb: Math.round(110 * 166) },
+      { name: "Inbound Sales", usd: 75, aed: 275, etb: Math.round(75 * 166) },
+      { name: "Revenue Operations (RevOps)", usd: 210, aed: 770, etb: Math.round(210 * 166) },
+      { name: "Introduction to Marketing", usd: 50, aed: 185, etb: Math.round(50 * 166) },
+      { name: "Marketing Analytics Foundation", usd: 130, aed: 475, etb: Math.round(130 * 166) },
+      { name: "Google Ads Search", usd: 160, aed: 585, etb: Math.round(160 * 166) },
+      { name: "AI-Powered Performance Ads", usd: 250, aed: 915, etb: Math.round(250 * 166) },
+      { name: "Google Analytics", usd: 175, aed: 640, etb: Math.round(175 * 166) }
     ];
 
     let currentSelectedCourseObj = null;
@@ -556,6 +630,7 @@
       }
       currentSelectedCourseObj = { name, usd, aed, etb };
       document.getElementById('selected-course-name').innerText = name;
+      document.getElementById('country-select').value = 'UAE';
       updatePaymentMethods();
       openModal('payment-modal');
     }
@@ -573,6 +648,7 @@
       } else {
         methodSelect.innerHTML = `
           <option value="card">Credit / Debit Card</option>
+          <option value="mpesa">M-Pesa</option>
           <option value="wallet">Crypto / Merchant Wallet ID</option>
         `;
       }

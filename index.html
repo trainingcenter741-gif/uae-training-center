@@ -185,18 +185,18 @@
     <!-- 3. PAYMENT PENDING VIEW -->
     <div id="pending-view" class="hidden max-w-3xl mx-auto px-4 py-20 text-center">
       <div class="bg-white rounded-2xl p-8 shadow-xl border">
-        <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         </div>
         <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-3">Submission Received!</h3>
         <p id="pending-course-title" class="text-amber-600 font-semibold mb-4 text-lg"></p>
         
-        <div class="bg-blue-50 border-l-4 border-blue-900 p-4 mb-6 text-left rounded-r">
-          <p class="text-gray-800 font-semibold text-base mb-2">
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 text-left rounded-r">
+          <p class="text-amber-900 font-bold text-base mb-1">
             Your payment is under review.
           </p>
           <p class="text-gray-700 text-sm">
-            You have successfully submitted payment and uploaded your screenshot. After 72 hours we will verify payment and unlock your course materials. Thank you.
+            You have successfully submitted payment and uploaded your screenshot. Our administrative team will verify your payment and unlock your course materials within 72 hours. Thank you.
           </p>
         </div>
         
@@ -235,7 +235,7 @@
     </div>
   </footer>
 
-  <!-- SIGN UP MODAL (Step 1: Details -> Step 2: Verification Code) -->
+  <!-- SIGN UP MODAL -->
   <div id="signup-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
       <h3 class="text-2xl font-bold text-blue-900 mb-1">Create New Account</h3>
@@ -255,7 +255,7 @@
         <button type="submit" id="send-code-btn" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-950 font-bold py-3 rounded-lg transition">Send Verification Code</button>
       </form>
 
-      <!-- Verification Code Form (Hidden initially) -->
+      <!-- Verification Code Form -->
       <form id="signup-form-step2" class="hidden" onsubmit="event.preventDefault(); verifyAndRegister();">
         <div class="bg-blue-50 p-3 rounded-lg text-xs text-blue-900 mb-4">
           A verification code has been successfully emailed to your address. Please check your inbox and enter the 6-digit code below:
@@ -295,7 +295,7 @@
       <h3 class="text-2xl font-bold text-blue-900 mb-1">Payment Checkout</h3>
       <p id="selected-course-name" class="text-sm font-semibold text-amber-600 mb-4"></p>
       
-      <form onsubmit="event.preventDefault(); submitPayment();">
+      <form id="payment-form" onsubmit="submitPayment(event);">
         <label class="block text-sm font-medium mb-1">Select Country</label>
         <select id="country-select" onchange="updatePaymentMethods()" class="w-full border rounded-lg px-3 py-2 mb-4 focus:outline-blue-900 bg-white">
           <option value="UAE" selected>United Arab Emirates (UAE)</option>
@@ -313,7 +313,7 @@
         <div id="mpesa-details" class="hidden bg-gray-50 border rounded-lg p-4 mb-4">
           <p class="text-xs text-gray-500 font-bold uppercase mb-2">M-Pesa Details</p>
           <div class="mb-2">
-            <span class="text-xs text-gray-500 block">Account Name:</span>
+            <span class="text-xs text-gray-500 block">Receiver Account Name:</span>
             <span class="font-bold text-gray-800">ytayal ybeltal</span>
           </div>
           <div class="mb-2">
@@ -328,7 +328,7 @@
             </div>
           </div>
           <label class="block text-sm font-medium mb-1">Upload Payment Screenshot</label>
-          <input type="file" required accept="image/*" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-white cursor-pointer focus:outline-none">
+          <input type="file" id="screenshot-input" required accept="image/*" class="w-full text-xs text-gray-500 border rounded-lg p-2 bg-white cursor-pointer focus:outline-none">
         </div>
 
         <!-- Wallet Details View -->
@@ -342,7 +342,7 @@
             </div>
           </div>
           <label class="block text-sm font-medium mb-1">Enter Payment / Transaction Code</label>
-          <input type="text" required placeholder="Paste transaction reference code" class="w-full border rounded-lg px-3 py-2 focus:outline-blue-900 bg-white">
+          <input type="text" placeholder="Paste transaction reference code" class="w-full border rounded-lg px-3 py-2 focus:outline-blue-900 bg-white">
         </div>
 
         <!-- Card Details View -->
@@ -592,7 +592,6 @@
 
       enrolledNames.forEach(courseName => {
         const status = userEnrollments[courseName];
-        const courseObj = coursesList.find(c => c.name === courseName) || { name: courseName };
         const row = document.createElement('div');
         row.className = 'bg-white rounded-xl p-5 border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4';
         
@@ -685,8 +684,10 @@
       setTimeout(() => { btn.innerText = originalText; }, 2000);
     }
 
-    function submitPayment() {
+    function submitPayment(event) {
+      event.preventDefault();
       if (!currentActiveUserEmail || !currentSelectedCourseObj) return;
+
       const store = getEnrollmentsStore();
       if (!store[currentActiveUserEmail]) store[currentActiveUserEmail] = {};
       store[currentActiveUserEmail][currentSelectedCourseObj.name] = 'pending';

@@ -548,13 +548,15 @@
       const userEnrollments = store[currentActiveUserEmail] || {};
 
       filtered.forEach((c) => {
-        const status = userEnrollments[c.name];
+        const enrollment = userEnrollments[c.name];
+        let status = enrollment ? enrollment.status : null;
+        
         let actionBtnHTML = `<button onclick="openPaymentModal('${c.name.replace(/'/g, "\\'")}', ${c.usd}, ${c.aed}, ${c.etb})" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Enroll Now</button>`;
         
         if (status === 'verified') {
           actionBtnHTML = `<button onclick="openClassroom('${c.name.replace(/'/g, "\\'")}')" class="bg-green-600 hover:bg-green-700 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">Open Classroom</button>`;
         } else if (status === 'pending') {
-          actionBtnHTML = `<span class="bg-amber-100 text-amber-800 text-xs px-3 py-1.5 rounded-lg font-semibold">Verification Pending</span>`;
+          actionBtnHTML = `<button onclick="openClassroom('${c.name.replace(/'/g, "\\'")}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs px-3 py-1.5 rounded-lg font-semibold transition">Verification Pending</button>`;
         }
 
         const card = document.createElement('div');
@@ -591,7 +593,8 @@
       }
 
       enrolledNames.forEach(courseName => {
-        const status = userEnrollments[courseName];
+        const enrollment = userEnrollments[courseName];
+        const status = enrollment ? enrollment.status : 'pending';
         const row = document.createElement('div');
         row.className = 'bg-white rounded-xl p-5 border shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4';
         
@@ -605,7 +608,7 @@
           statusBadge = '<span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Pending Verification (72h)</span>';
           actionHTML = `
             <button onclick="simulateVerificationForCourse('${courseName.replace(/'/g, "\\'")}')" class="bg-blue-900 hover:bg-blue-800 text-white text-xs px-4 py-2 rounded-lg font-semibold transition">
-              [Demo] Force Verify
+              [Demo] Simulate 72h Passed
             </button>
           `;
         }
@@ -690,7 +693,12 @@
 
       const store = getEnrollmentsStore();
       if (!store[currentActiveUserEmail]) store[currentActiveUserEmail] = {};
-      store[currentActiveUserEmail][currentSelectedCourseObj.name] = 'pending';
+      
+      // Store submission timestamp and pending status
+      store[currentActiveUserEmail][currentSelectedCourseObj.name] = {
+        status: 'pending',
+        timestamp: Date.now()
+      };
       saveEnrollmentsStore(store);
 
       closeModal('payment-modal');
@@ -707,7 +715,12 @@
     function simulateVerificationForCourse(courseName) {
       const store = getEnrollmentsStore();
       if (!store[currentActiveUserEmail]) store[currentActiveUserEmail] = {};
-      store[currentActiveUserEmail][courseName] = 'verified';
+      
+      // Mark as verified and backdate timestamp by 73 hours so it passes the 72h check
+      store[currentActiveUserEmail][courseName] = {
+        status: 'verified',
+        timestamp: Date.now() - (73 * 60 * 60 * 1000)
+      };
       saveEnrollmentsStore(store);
 
       const targetObj = coursesList.find(c => c.name === courseName) || { name: courseName };
@@ -716,6 +729,29 @@
     }
 
     function openClassroom(courseName) {
+      const store = getEnrollmentsStore();
+      const userEnrollments = store[currentActiveUserEmail] || {};
+      const enrollment = userEnrollments[courseName];
+
+      // Strict 72-hour validation check before opening course
+      const requiredHours = 72;
+      const hoursInMs = requiredHours * 60 * 60 * 1000;
+
+      if (!enrollment || enrollment.status !== 'verified') {
+        if (enrollment && enrollment.timestamp) {
+          const elapsed = Date.now() - enrollment.timestamp;
+          if (elapsed < hoursInMs) {
+            const hoursLeft = Math.ceil((hoursInMs - elapsed) / (60 * 60 * 1000));
+            alert(`Your payment is under review. Please wait approximately ${hoursLeft} more hours for admin verification before accessing this course.`);
+            showMyEnrolledCourses();
+            return;
+          }
+        }
+        alert('Your payment is under review. Access is locked until 72 hours have passed and payment is verified.');
+        showMyEnrolledCourses();
+        return;
+      }
+
       const targetObj = coursesList.find(c => c.name === courseName);
       if (targetObj) currentSelectedCourseObj = targetObj;
 
